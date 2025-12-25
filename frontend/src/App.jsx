@@ -87,19 +87,17 @@ export default function App() {
 
   return (
     <>
-      {/* 1. THE CHAT WINDOW (Floating Up) */}
+      {/* 1. THE CHAT WINDOW (Transparent Floating HUD) */}
       <div className={`
         fixed bottom-20 right-4 z-50 
         w-[90vw] md:w-[380px] h-[600px] max-h-[75vh]
-        flex flex-col overflow-hidden
-        rounded-2xl border border-white/10 shadow-2xl shadow-black/80
-        bg-gray-900/95 backdrop-blur-xl 
+        flex flex-col
         transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] origin-bottom-right
         ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none'}
       `}>
         
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 bg-white/5 border-b border-white/5">
+        {/* A. FLOATING HEADER (Detached) */}
+        <div className="flex items-center justify-between px-5 py-4 bg-gray-900/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg mb-2">
           <div className="flex items-center gap-3">
             <div className="relative">
               <div className="absolute inset-0 bg-blue-500 blur-md opacity-20 rounded-full"></div>
@@ -124,18 +122,21 @@ export default function App() {
           </div>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar scroll-smooth">
+        {/* B. MESSAGES AREA (Completely Transparent Background) */}
+        <div className="flex-1 overflow-y-auto p-2 space-y-4 custom-scrollbar scroll-smooth">
           {messages.map((msg, index) => (
             <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              
+              {/* Message Bubble - We added a slight backdrop blur to bubbles so they are readable over text */}
               <div className={`
-                max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm relative group border
+                max-w-[90%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-lg relative group border backdrop-blur-md
                 ${msg.role === 'user' 
-                  ? 'bg-blue-600 border-blue-500 text-white rounded-br-sm' 
-                  : 'bg-white/5 border-white/10 text-gray-100 rounded-bl-sm'
+                  ? 'bg-blue-600/90 border-blue-500/50 text-white rounded-br-sm' 
+                  : 'bg-gray-900/90 border-white/10 text-gray-100 rounded-bl-sm'
                 }
               `}>
                   <div className="prose prose-invert prose-sm max-w-none prose-p:my-0"><ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown></div>
+                  
                   {msg.role === 'ai' && <button onClick={() => speak(msg.text)} className="absolute -right-8 top-1 p-1.5 text-gray-500 hover:text-blue-400 opacity-0 group-hover:opacity-100 transition-all"><Volume2 size={14} /></button>}
                   
                   {msg.sources && msg.sources.length > 0 && (
@@ -155,48 +156,54 @@ export default function App() {
               </div>
             </div>
           ))}
-          {isLoading && <div className="text-gray-400 text-xs ml-1 animate-pulse flex gap-2"><Loader2 size={12} className="animate-spin"/> Processing...</div>}
+          {isLoading && (
+             <div className="flex justify-start p-2">
+                <div className="bg-gray-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 text-gray-400 text-xs flex gap-2 items-center shadow-lg">
+                   <Loader2 size={12} className="animate-spin"/> Processing Neural Query...
+                </div>
+             </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <form onSubmit={sendMessage} className="p-4 bg-black/20 border-t border-white/5">
-          <div className="relative flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-2 py-1 focus-within:ring-1 focus-within:ring-blue-500/50">
-            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask about robotics..." className="flex-1 bg-transparent text-white text-sm px-2 py-2.5 focus:outline-none" disabled={isLoading}/>
-            <button type="submit" disabled={isLoading || !input.trim()} className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-all"><Send size={16} /></button>
+        {/* C. FLOATING INPUT (Detached) */}
+        <form onSubmit={sendMessage} className="mt-2">
+          <div className="relative flex items-center gap-2 bg-gray-900/90 backdrop-blur-xl border border-white/10 rounded-2xl px-3 py-2 shadow-lg focus-within:ring-1 focus-within:ring-blue-500/50 focus-within:border-blue-500/50 transition-all">
+            <input 
+               type="text" 
+               value={input} 
+               onChange={(e) => setInput(e.target.value)} 
+               placeholder="Ask about robotics..." 
+               className="flex-1 bg-transparent text-white text-sm px-2 py-2 focus:outline-none placeholder-gray-500" 
+               disabled={isLoading}
+            />
+            <button 
+               type="submit" 
+               disabled={isLoading || !input.trim()} 
+               className="p-2 bg-blue-600 text-white rounded-xl hover:bg-blue-500 transition-all shadow-md"
+            >
+               <Send size={16} />
+            </button>
           </div>
         </form>
+
       </div>
 
 
       {/* 2. THE FLOATING BUTTON */}
-      {/* FIX: Moved to 'bottom-3 right-3' to ensure it fits inside smaller parent iframes 
-         without getting clipped at the top-left corner.
-      */}
       <div className="fixed bottom-3 right-3 z-50 group">
         <button
           onClick={toggleChat}
           className={`
             relative flex items-center justify-center w-14 h-14 rounded-full 
-            
-            /* Tighter shadow to prevent clipping */
-            shadow-xl
-            border border-white/20 
-            ring-1 ring-black/50
-
+            shadow-xl border border-white/20 ring-1 ring-black/50
             transform transition-all duration-300 hover:scale-105 active:scale-95
             backdrop-blur-sm
             ${isOpen ? 'bg-neutral-800 rotate-90' : 'bg-gradient-to-br from-blue-600 to-indigo-700'}
           `}
         >
-          {/* Internal Glow (Safer than external) */}
           <span className={`absolute inset-0 rounded-full bg-blue-400/20 blur-sm ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-
-          {isOpen ? (
-            <X size={24} className="text-gray-400" />
-          ) : (
-            <Sparkles size={22} className="text-white drop-shadow-sm" />
-          )}
+          {isOpen ? <X size={24} className="text-gray-400" /> : <Sparkles size={22} className="text-white drop-shadow-sm" />}
         </button>
       </div>
     </>
