@@ -50,14 +50,25 @@ export default function App() {
     }
   };
 
+  // --- 4. SMARTER TOGGLE LOGIC (FIXED) ---
   const toggleWidget = (widgetName) => {
-    if (activeWidget === widgetName) {
-      setActiveWidget(null); // Close if same
+    const isClosing = activeWidget === widgetName;
+    const isOpening = activeWidget === null;
+
+    if (isClosing) {
+      // If clicking the same button, close everything
+      setActiveWidget(null);
+      window.parent.postMessage('toggle-widget', '*'); 
     } else {
-      setActiveWidget(widgetName); // Open new
+      // If clicking a new button, switch to it
+      setActiveWidget(widgetName);
+      
+      // Only send the "Open" signal if the window was previously fully closed.
+      // If we are just switching from Chat <-> Translator, we do NOT send the signal.
+      if (isOpening) {
+        window.parent.postMessage('toggle-widget', '*');
+      }
     }
-    // Signal to parent iframe if needed
-    window.parent.postMessage('toggle-widget', '*');
   };
 
   const sendMessage = async (e) => {
@@ -122,7 +133,7 @@ export default function App() {
                  <h3 className="font-bold text-gray-200 flex items-center gap-2 text-sm">
                    <Languages size={16} className="text-blue-400"/> Quick Translator
                  </h3>
-                 <button onClick={() => setActiveWidget(null)} className="text-gray-400 hover:text-white">
+                 <button onClick={() => toggleWidget('translator')} className="text-gray-400 hover:text-white">
                    <X size={18} />
                  </button>
               </div>
@@ -154,7 +165,7 @@ export default function App() {
             <div className="flex gap-1">
                {isSpeaking && <button onClick={stopSpeaking} className="p-2 text-red-400 hover:bg-gray-700 rounded"><StopCircle size={16}/></button>}
                <button onClick={clearHistory} className="p-2 text-gray-400 hover:text-red-400 hover:bg-gray-700 rounded"><Trash2 size={16}/></button>
-               <button onClick={() => setActiveWidget(null)} className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><X size={18}/></button>
+               <button onClick={() => toggleWidget('chat')} className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><X size={18}/></button>
             </div>
           </div>
 
