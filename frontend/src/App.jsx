@@ -87,14 +87,9 @@ export default function App() {
 
   return (
     <>
-      {/* LAYOUT FIX: 
-         We separate the Window and the Button into two different fixed containers.
-         This prevents layout shifts and ensures the button is never clipped by the window's container.
-      */}
-
       {/* 1. THE CHAT WINDOW (Floating Up) */}
       <div className={`
-        fixed bottom-24 right-6 z-50 
+        fixed bottom-20 right-4 z-50 
         w-[90vw] md:w-[380px] h-[600px] max-h-[75vh]
         flex flex-col overflow-hidden
         rounded-2xl border border-white/10 shadow-2xl shadow-black/80
@@ -174,39 +169,35 @@ export default function App() {
       </div>
 
 
-      {/* 2. THE FLOATING BUTTON (Fixed & Sharpened) */}
-      <div className="fixed bottom-6 right-6 z-50 group">
-        
-        {/* A. Wrapper with padding to prevent 'Cut Out' clipping */}
-        <div className="p-2"> 
-          
-          {/* B. The Button */}
-          <button
-            onClick={toggleChat}
-            className={`
-              relative flex items-center justify-center w-14 h-14 rounded-full 
-              
-              /* SHADOWS & BORDERS (The Fix for 'Imprecise' look) */
-              shadow-[0_4px_20px_rgba(0,0,0,0.4)] 
-              border border-white/20 
-              ring-1 ring-black/50
+      {/* 2. THE FLOATING BUTTON */}
+      {/* FIX: Moved to 'bottom-3 right-3' to ensure it fits inside smaller parent iframes 
+         without getting clipped at the top-left corner.
+      */}
+      <div className="fixed bottom-3 right-3 z-50 group">
+        <button
+          onClick={toggleChat}
+          className={`
+            relative flex items-center justify-center w-14 h-14 rounded-full 
+            
+            /* Tighter shadow to prevent clipping */
+            shadow-xl
+            border border-white/20 
+            ring-1 ring-black/50
 
-              transform transition-all duration-300 hover:scale-105 active:scale-95
-              backdrop-blur-sm
-              ${isOpen ? 'bg-neutral-800 rotate-90' : 'bg-gradient-to-br from-blue-600 to-indigo-700'}
-            `}
-          >
-            {/* C. Glow effect that sits BEHIND the button (absolute positioning) */}
-            <span className={`absolute -inset-1 rounded-full bg-blue-500/30 blur-md -z-10 transition-opacity duration-300 ${isOpen ? 'opacity-0' : 'opacity-100 group-hover:opacity-100'}`}></span>
+            transform transition-all duration-300 hover:scale-105 active:scale-95
+            backdrop-blur-sm
+            ${isOpen ? 'bg-neutral-800 rotate-90' : 'bg-gradient-to-br from-blue-600 to-indigo-700'}
+          `}
+        >
+          {/* Internal Glow (Safer than external) */}
+          <span className={`absolute inset-0 rounded-full bg-blue-400/20 blur-sm ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
 
-            {/* Icon */}
-            {isOpen ? (
-              <X size={24} className="text-gray-400" />
-            ) : (
-              <Sparkles size={22} className="text-white drop-shadow-sm" />
-            )}
-          </button>
-        </div>
+          {isOpen ? (
+            <X size={24} className="text-gray-400" />
+          ) : (
+            <Sparkles size={22} className="text-white drop-shadow-sm" />
+          )}
+        </button>
       </div>
     </>
   );
