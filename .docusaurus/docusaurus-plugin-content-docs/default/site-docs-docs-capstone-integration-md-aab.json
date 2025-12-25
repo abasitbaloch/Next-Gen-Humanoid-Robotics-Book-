@@ -1,0 +1,27 @@
+{
+  "id": "capstone/integration",
+  "title": "System Integration",
+  "description": "Overview",
+  "source": "@site/docs/docs/capstone/integration.md",
+  "sourceDirName": "capstone",
+  "slug": "/capstone/integration",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/capstone/integration.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Capstone: Autonomous Humanoid Integration",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/intro"
+  },
+  "next": {
+    "title": "Validation and Testing",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/validation"
+  }
+}

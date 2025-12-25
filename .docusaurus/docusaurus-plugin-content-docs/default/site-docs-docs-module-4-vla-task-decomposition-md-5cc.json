@@ -1,0 +1,27 @@
+{
+  "id": "module-4-vla/task-decomposition",
+  "title": "Task Decomposition Systems",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-4-vla/task-decomposition.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/task-decomposition",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/task-decomposition",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-4-vla/task-decomposition.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "LLM Integration for Task Planning",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/llm-integration"
+  },
+  "next": {
+    "title": "Autonomous Behaviors",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/autonomous-behaviors"
+  }
+}

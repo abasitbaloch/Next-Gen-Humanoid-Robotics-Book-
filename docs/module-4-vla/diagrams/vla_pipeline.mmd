@@ -1,0 +1,34 @@
+graph TD
+    A[Voice Command] --> B[Speech-to-Text]
+    B --> C[Natural Language Understanding]
+    C --> D[Task Planner with LLM]
+    D --> E[Task Decomposition]
+    E --> F[Subtask Queue]
+
+    G[Perception Input] --> H[Object Detection]
+    H --> I[Scene Understanding]
+    I --> J[World Model Update]
+    J --> K[Context for Planning]
+    K --> D
+
+    F --> L[Behavior Executor]
+    L --> M[Navigation System]
+    L --> N[Manipulation System]
+    L --> O[Speech Output]
+
+    M --> P[Robot Motion]
+    N --> Q[Robot Manipulation]
+    O --> R[Human Feedback]
+
+    P --> S[State Estimation]
+    Q --> S
+    R --> A
+
+    V[Human-Robot Interaction] --> A
+    V --> R
+
+    style A fill:#e1f5fe
+    style D fill:#f3e5f5
+    style L fill:#fff3e0
+    style P fill:#e8f5e8
+    style Q fill:#e8f5e8

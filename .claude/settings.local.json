@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch --all --prune)",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1 -Json)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

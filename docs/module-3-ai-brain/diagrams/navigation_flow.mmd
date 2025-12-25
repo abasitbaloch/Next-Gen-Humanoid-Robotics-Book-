@@ -1,0 +1,32 @@
+graph TD
+    A[Goal Pose] --> B[Global Planner]
+    B --> C[Global Path]
+    C --> D[Local Planner]
+    D --> E[Velocity Commands]
+    E --> F[Robot Controller]
+    F --> G[Robot Motion]
+    G --> H[Odometry Feedback]
+    H --> I[Localization]
+    I --> J[Map]
+    J --> B
+    I --> D
+
+    K[Sensor Data] --> L[Obstacle Detection]
+    L --> M[Dynamic Obstacle Tracking]
+    M --> D
+    L --> N[Recovery Behaviors]
+    N --> D
+
+    O[Task Manager] --> P[Navigation State Machine]
+    P --> B
+    P --> D
+    P --> N
+
+    Q[World Model] --> R[Costmap Management]
+    R --> B
+    R --> D
+
+    style A fill:#e1f5fe
+    style G fill:#e8f5e8
+    style Q fill:#f3e5f5
+    style P fill:#fff3e0

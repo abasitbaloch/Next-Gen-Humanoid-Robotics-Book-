@@ -1,0 +1,596 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="humanoid_test_world">
+
+    <!-- Physics Configuration -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>10</iters>
+          <sor>1.3</sor>
+        </solver>
+        <constraints>
+          <cfm>0.0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+
+    <!-- Environment Lighting -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://sky</uri>
+    </include>
+
+    <!-- Basic Environment Elements -->
+
+    <!-- Main floor -->
+    <model name="floor" static="true">
+      <pose>0 0 0 0 0 0</pose>
+      <link name="floor_link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>20 20</size>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>20 20</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Test Objects for Manipulation -->
+
+    <!-- Small cubes for grasping tests -->
+    <model name="test_cube_red" static="false">
+      <pose>-1 1 0.5 0 0 0</pose>
+      <link name="cube_link">
+        <inertial>
+          <mass>0.1</mass>
+          <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="test_cube_green" static="false">
+      <pose>-1 1.2 0.5 0 0 0</pose>
+      <link name="cube_link">
+        <inertial>
+          <mass>0.1</mass>
+          <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="test_cube_blue" static="false">
+      <pose>-1 0.8 0.5 0 0 0</pose>
+      <link name="cube_link">
+        <inertial>
+          <mass>0.1</mass>
+          <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.05 0.05 0.05"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Cylinders for manipulation -->
+    <model name="test_cylinder" static="false">
+      <pose>-1.5 0 0.5 0 0 0</pose>
+      <link name="cylinder_link">
+        <inertial>
+          <mass>0.15</mass>
+          <inertia ixx="0.0002" ixy="0" ixz="0" iyy="0.0002" iyz="0" izz="0.0001"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.03</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.03</radius>
+              <length>0.1</length>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Spheres -->
+    <model name="test_sphere" static="false">
+      <pose>-2 0.5 0.5 0 0 0</pose>
+      <link name="sphere_link">
+        <inertial>
+          <mass>0.08</mass>
+          <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.04</radius>
+            </sphere>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <sphere>
+              <radius>0.04</radius>
+            </sphere>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Navigation Testing Elements -->
+
+    <!-- Obstacles for navigation -->
+    <model name="obstacle_1" static="true">
+      <pose>2 1 0.5 0 0 0</pose>
+      <link name="obstacle_link">
+        <collision name="collision">
+          <geometry>
+            <box size="0.3 0.3 1.0"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.3 0.3 1.0"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="obstacle_2" static="true">
+      <pose>2 -1 0.5 0 0 0</pose>
+      <link name="obstacle_link">
+        <collision name="collision">
+          <geometry>
+            <box size="0.3 0.3 1.0"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.3 0.3 1.0"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Corridor for navigation testing -->
+    <model name="corridor_wall_1" static="true">
+      <pose>0 3 0.5 0 0 0</pose>
+      <link name="wall_link">
+        <collision name="collision">
+          <geometry>
+            <box size="6 0.2 1.0"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="6 0.2 1.0"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="corridor_wall_2" static="true">
+      <pose>0 -3 0.5 0 0 0</pose>
+      <link name="wall_link">
+        <collision name="collision">
+          <geometry>
+            <box size="6 0.2 1.0"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="6 0.2 1.0"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Door opening -->
+    <model name="door_frame" static="true">
+      <pose>3 0 0.5 0 0 0</pose>
+      <link name="frame_link">
+        <collision name="collision">
+          <geometry>
+            <box size="0.2 2.0 1.8"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.2 2.0 1.8"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Brown</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Balance Testing Elements -->
+
+    <!-- Narrow walkway -->
+    <model name="balance_beam" static="true">
+      <pose>0 -2 0.1 0 0 0</pose>
+      <link name="beam_link">
+        <collision name="collision">
+          <geometry>
+            <box size="4 0.1 0.05"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="4 0.1 0.05"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Stairs for locomotion testing -->
+    <model name="stairs" static="true">
+      <pose>4 2 0 0 0 0</pose>
+
+      <link name="step_1">
+        <pose>0 0 0.1 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.8 1.0 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.8 1.0 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_2">
+        <pose>0 0 0.3 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.8 1.0 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.8 1.0 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_3">
+        <pose>0 0 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.8 1.0 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.8 1.0 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Ramps for locomotion testing -->
+    <model name="ramp_10deg" static="true">
+      <pose>-3 2 0 0 0 0.1745</pose>  <!-- 10 degrees in radians -->
+      <link name="ramp_link">
+        <collision name="collision">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="ramp_20deg" static="true">
+      <pose>-3 0 0 0 0 0.3491</pose>  <!-- 20 degrees in radians -->
+      <link name="ramp_link">
+        <collision name="collision">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Target markers for navigation -->
+    <model name="navigation_target" static="true">
+      <pose>5 0 0.1 0 0 0</pose>
+      <link name="target_link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>0.2"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>0.2"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Start position marker -->
+    <model name="start_position" static="true">
+      <pose>-5 0 0.1 0 0 0</pose>
+      <link name="start_link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>0.2"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.3</radius>
+              <length>0.2"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Furniture for realistic environment -->
+    <model name="table" static="true">
+      <pose>-2 -2 0.4 0 0 0</pose>
+      <link name="table_link">
+        <collision name="collision">
+          <geometry>
+            <box size="1.2 0.8 0.8"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="1.2 0.8 0.8"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="chair" static="false">
+      <pose>-2.2 -2.2 0.4 0 0 0</pose>
+      <link name="chair_link">
+        <inertial>
+          <mass>5.0</mass>
+          <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="1.0"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box size="0.4 0.4 0.8"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.4 0.4 0.8"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Lighting configuration -->
+    <light name="main_light" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.3 0.3 -1</direction>
+    </light>
+
+    <!-- Plugins for simulation enhancements -->
+    <plugin name="world_plugin" filename="libgazebo_ros_init.so">
+      <ros>
+        <namespace>/world</namespace>
+      </ros>
+      <update_rate>1.0</update_rate>
+    </plugin>
+
+  </world>
+</sdf>

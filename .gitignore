@@ -1,0 +1,82 @@
+# Docusaurus
+.node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+coverage/
+dist/
+build/
+*.tsbuildinfo
+.next/
+.nuxt/
+public/
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+.python-version
+
+# ROS 2
+install/
+build/
+log/
+.devel_space_env
+.install_space_env
+colcon_test_results/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.next/standalone/.output/server/pages/_error.js.nft.json
+
+# Environment variables
+.env*
+!.env.example
+
+# Testing
+coverage/
+coverage/lcov-report/
+junit.xml
+*.gcda
+*.gcno
+
+# Documentation
+docs/api/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup

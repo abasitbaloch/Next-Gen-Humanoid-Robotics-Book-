@@ -1,0 +1,27 @@
+{
+  "id": "module-2-digital-twin/intro",
+  "title": "Module 2: Digital Twin (Gazebo & Unity)",
+  "description": "Introduction",
+  "source": "@site/docs/docs/module-2-digital-twin/intro.md",
+  "sourceDirName": "module-2-digital-twin",
+  "slug": "/module-2-digital-twin/intro",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-2-digital-twin/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 1 Validation: Learning Objectives Assessment",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/validation"
+  },
+  "next": {
+    "title": "Robot Models in Simulation Environments",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/robot-models"
+  }
+}

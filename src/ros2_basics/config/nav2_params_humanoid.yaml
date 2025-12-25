@@ -1,0 +1,415 @@
+# Navigation2 Configuration for Humanoid Robot
+
+amcl:
+  ros__parameters:
+    use_sim_time: True
+    alpha1: 0.2
+    alpha2: 0.2
+    alpha3: 0.2
+    alpha4: 0.2
+    alpha5: 0.2
+    base_frame_id: "base_link"
+    beam_skip_distance: 0.5
+    beam_skip_error_threshold: 0.9
+    beam_skip_threshold: 0.3
+    do_beamskip: false
+    global_frame_id: "map"
+    lambda_short: 0.1
+    laser_likelihood_max_dist: 2.0
+    laser_max_range: 100.0
+    laser_min_range: -1.0
+    laser_model_type: "likelihood_field"
+    max_beams: 60
+    max_particles: 2000
+    min_particles: 500
+    odom_frame_id: "odom"
+    pf_err: 0.05
+    pf_z: 0.99
+    recovery_alpha_fast: 0.0
+    recovery_alpha_slow: 0.0
+    resample_interval: 1
+    robot_model_type: "differential"
+    save_pose_rate: 0.5
+    sigma_hit: 0.2
+    tf_broadcast: true
+    transform_tolerance: 1.0
+    update_min_a: 0.2
+    update_min_d: 0.25
+    z_hit: 0.5
+    z_max: 0.05
+    z_rand: 0.5
+    z_short: 0.05
+
+bt_navigator:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: map
+    robot_base_frame: base_link
+    odom_topic: /odom
+    default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"
+    plugin_lib_names:
+    - nav2_compute_path_to_pose_action_bt_node
+    - nav2_compute_path_through_poses_action_bt_node
+    - nav2_follow_path_action_bt_node
+    - nav2_spin_action_bt_node
+    - nav2_wait_action_bt_node
+    - nav2_back_up_action_bt_node
+    - nav2_clear_costmap_service_bt_node
+    - nav2_is_stuck_condition_bt_node
+    - nav2_have_feedback_condition_bt_node
+    - nav2_have_odom_condition_bt_node
+    - nav2_initial_pose_received_condition_bt_node
+    - nav2_reinitialize_global_localization_service_bt_node
+    - nav2_rate_controller_bt_node
+    - nav2_distance_controller_bt_node
+    - nav2_speed_controller_bt_node
+    - nav2_truncate_path_action_bt_node
+    - nav2_goal_updater_node_bt_node
+    - nav2_recovery_node_bt_node
+    - nav2_pipeline_sequence_bt_node
+    - nav2_round_robin_node_bt_node
+    - nav2_transform_available_condition_bt_node
+    - nav2_time_expired_condition_bt_node
+    - nav2_path_expiring_timer_condition
+    - nav2_distance_traveled_condition_bt_node
+    - nav2_greedy_recover_condition_bt_node
+    - nav2_is_battery_low_condition_bt_node
+    - nav2_navigate_to_pose_action_bt_node
+    - nav2_remove_passed_goals_action_bt_node
+    - nav2_planner_selector_bt_node
+    - nav2_controller_selector_bt_node
+    - nav2_goal_checker_selector_bt_node
+    - nav2_controller_cancel_bt_node
+    - nav2_path_longer_on_approach_bt_node
+    - nav2_wait_cancel_bt_node
+
+bt_navigator_navigate_through_poses:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: map
+    robot_base_frame: base_link
+    odom_topic: /odom
+    default_bt_xml_filename: "navigate_w_replanning_and_recovery.xml"
+    plugin_lib_names:
+    - nav2_compute_path_to_through_poses_action_bt_node
+    - nav2_follow_path_action_bt_node
+    - nav2_spin_action_bt_node
+    - nav2_wait_action_bt_node
+    - nav2_back_up_action_bt_node
+    - nav2_clear_costmap_service_bt_node
+    - nav2_is_stuck_condition_bt_node
+    - nav2_have_feedback_condition_bt_node
+    - nav2_have_odom_condition_bt_node
+    - nav2_initial_pose_received_condition_bt_node
+    - nav2_reinitialize_global_localization_service_bt_node
+    - nav2_rate_controller_bt_node
+    - nav2_distance_controller_bt_node
+    - nav2_speed_controller_bt_node
+    - nav2_truncate_path_action_bt_node
+    - nav2_goal_updater_node_bt_node
+    - nav2_recovery_node_bt_node
+    - nav2_pipeline_sequence_bt_node
+    - nav2_round_robin_node_bt_node
+    - nav2_transform_available_condition_bt_node
+    - nav2_time_expired_condition_bt_node
+    - nav2_path_expiring_timer_condition
+    - nav2_distance_traveled_condition_bt_node
+    - nav2_greedy_recover_condition_bt_node
+    - nav2_is_battery_low_condition_bt_node
+    - nav2_navigate_to_pose_action_bt_node
+    - nav2_remove_passed_goals_action_bt_node
+    - nav2_planner_selector_bt_node
+    - nav2_controller_selector_bt_node
+    - nav2_goal_checker_selector_bt_node
+    - nav2_controller_cancel_bt_node
+    - nav2_path_longer_on_approach_bt_node
+    - nav2_wait_cancel_bt_node
+
+controller_server:
+  ros__parameters:
+    use_sim_time: True
+    controller_frequency: 20.0
+    min_x_velocity_threshold: 0.001
+    min_y_velocity_threshold: 0.5
+    min_theta_velocity_threshold: 0.001
+    progress_checker_plugin: "progress_checker"
+    goal_checker_plugin: "goal_checker"
+    controller_plugins: ["FollowPath"]
+
+    # Humanoid-specific controller configuration
+    FollowPath:
+      plugin: "nav2_mppi_controller::MPPIController"
+      # MPPI Controller specific parameters
+      time_steps: 32
+      control_frequency: 20.0
+      batch_size: 1000
+      vx_std: 0.2
+      vy_std: 0.1
+      wz_std: 0.3
+      vx_max: 0.3    # Slower for humanoid balance
+      vx_min: -0.2
+      vy_max: 0.2    # Limited lateral movement for bipedal
+      wz_max: 0.5
+      xy_goal_tolerance: 0.3  # Larger tolerance for humanoid
+      yaw_goal_tolerance: 0.3
+      state_refresh_rate: 50.0
+      predict_robot_state: true
+      # Humanoid-specific costs
+      costmap_weight: 3.0
+      alignment_costmap_weight: 2.0
+      prefer_forward_cost: 0.5
+      goal_angle_cost: 0.5
+      reference_path_cost: 0.5
+      goal_distance_cost: 1.0
+      goal_angle_deadzone: 0.05
+      goal_distance_deadzone: 0.1
+      # Humanoid-specific motion model
+      motion_model: "DiffDrive"
+      sampling_period: 0.05
+      model_dt: 0.05
+      aux_variance: 0.01
+      ctrl_variance: 0.01
+      convergence_time: 2.0
+      max_iterations: 3
+
+local_costmap:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: odom
+    robot_base_frame: base_link
+    update_frequency: 5.0
+    publish_frequency: 2.0
+    static_map: false
+    rolling_window: true
+    width: 6    # Smaller for humanoid maneuverability
+    height: 6
+    resolution: 0.05
+    origin_x: -3.0
+    origin_y: -3.0
+    # Humanoid-specific inflation
+    cost_scaling_factor: 10.0
+    inflation_radius: 0.6  # Larger for humanoid safety margin
+    plugin_names: ["obstacle_layer", "inflation_layer"]
+    plugin_types: ["nav2_costmap_2d::ObstacleLayer", "nav2_costmap_2d::InflationLayer"]
+
+    # Obstacle layer configuration for humanoid
+    obstacle_layer:
+      plugin: "nav2_costmap_2d::ObstacleLayer"
+      enabled: True
+      observation_sources: scan
+      scan:
+        topic: /scan
+        max_obstacle_height: 2.0    # Humanoid height consideration
+        clearing: true
+        marking: true
+        data_type: "LaserScan"
+        raytrace_range: 3.0
+        obstacle_range: 2.5
+        transform_tolerance: 0.2
+        observation_persistence: 0.0
+        expected_update_rate: 0.0
+
+    # Inflation layer with humanoid-specific parameters
+    inflation_layer:
+      plugin: "nav2_costmap_2d::InflationLayer"
+      enabled: True
+      cost_scaling_factor: 3.0
+      inflation_radius: 0.6    # Humanoid requires larger safety margin
+      inflate_unknown: false
+      inflate_around_unknown: false
+
+global_costmap:
+  ros__parameters:
+    use_sim_time: True
+    global_frame: map
+    robot_base_frame: base_link
+    update_frequency: 1.0
+    publish_frequency: 0.5
+    static_map: true
+    rolling_window: false
+    # Humanoid-specific global costmap
+    width: 20
+    height: 20
+    resolution: 0.05
+    origin_x: -10.0
+    origin_y: -10.0
+    # Larger robot footprint for humanoid
+    robot_radius: 0.4    # Larger than typical wheeled robot
+    plugin_names: ["static_layer", "obstacle_layer", "inflation_layer"]
+    plugin_types: ["nav2_costmap_2d::StaticLayer", "nav2_costmap_2d::ObstacleLayer", "nav2_costmap_2d::InflationLayer"]
+
+    # Static layer for map
+    static_layer:
+      plugin: "nav2_costmap_2d::StaticLayer"
+      map_subscribe_transient_local: True
+
+    # Obstacle layer for global planning
+    obstacle_layer:
+      plugin: "nav2_costmap_2d::VoxelLayer"
+      enabled: True
+      observation_sources: scan
+      scan:
+        topic: /scan
+        obstacle_range: 2.5
+        raytrace_range: 3.0
+        max_obstacle_height: 2.0    # Up to humanoid height
+        min_obstacle_height: 0.0
+        clearing: True
+        marking: True
+        data_type: "LaserScan"
+        queue_size: 10
+        transform_tolerance: 0.2
+        observation_persistence: 0.0
+        expected_update_rate: 0.0
+
+    # Inflation layer for global planning
+    inflation_layer:
+      plugin: "nav2_costmap_2d::InflationLayer"
+      enabled: True
+      cost_scaling_factor: 3.0
+      inflation_radius: 0.8    # Even larger for global planning safety
+      inflate_unknown: false
+      inflate_around_unknown: false
+
+planner_server:
+  ros__parameters:
+    expected_planner_frequency: 20.0
+    use_sim_time: True
+    planner_plugins: ["GridBasedPlanner"]
+
+    GridBasedPlanner:
+      plugin: "nav2_navfn_planner::NavfnPlanner"
+      tolerance: 0.5    # Larger tolerance for humanoid
+      use_astar: false
+      allow_unknown: true
+      planner_thread_num: 1
+
+      # Isaac ROS enhanced planning
+      visualize_potential: false
+      publish_potential: false
+      multi_query_thread_num: 4
+      potential_scale: 1.0
+      obstacle_scale: 1.0
+      neutral_scale: 1.0
+
+smoother_server:
+  ros__parameters:
+    use_sim_time: True
+    smoother_plugins: ["simple_smoother"]
+    simple_smoother:
+      plugin: "nav2_smoother::SimpleSmoother"
+      tolerance: 1.0e-10
+      max_its: 1000
+      do_refinement: True
+
+behavior_server:
+  ros__parameters:
+    costmap_topic: local_costmap/costmap_raw
+    footprint_topic: local_costmap/published_footprint
+    cycle_frequency: 10.0
+    behavior_plugins: ["spin", "backup", "wait"]
+    spin:
+      plugin: "nav2_behaviors::Spin"
+      spin_dist: 1.57    # 90 degrees
+      tolerance: 0.05
+      max_rotational_vel: 0.2    # Slower rotation for balance
+      min_rotational_vel: 0.1
+    backup:
+      plugin: "nav2_behaviors::BackUp"
+      backup_dist: 0.2    # Shorter backup for humanoid
+      backup_speed: 0.05
+      tolerance: 0.05
+      max_backup_attempts: 10
+    wait:
+      plugin: "nav2_behaviors::Wait"
+      wait_duration: 1.0
+
+waypoint_follower:
+  ros__parameters:
+    loop_rate: 20
+    stop_on_failure: false
+    waypoint_task_executor_queue_size: 1
+    waypoint_task_executor_reachable_radius: 0.5
+    waypoint_task_executor_longitudinal_distance: 0.5
+    waypoint_task_executor_angular_distance: 0.5
+    goal_checker:
+      plugin: "nav2_controller::SimpleGoalChecker"
+      xy_goal_tolerance: 0.3
+      yaw_goal_tolerance: 0.3
+      stateful: true
+    controller_server:
+      plugin: "nav2_controller::FollowPath"
+      progress_checker:
+        plugin: "nav2_controller::SimpleProgressChecker"
+        required_movement_radius: 0.5
+        movement_time_allowance: 10.0
+      goal_checker:
+        plugin: "nav2_controller::SimpleGoalChecker"
+        xy_goal_tolerance: 0.3
+        yaw_goal_tolerance: 0.3
+        stateful: true
+
+velocity_smoother:
+  ros__parameters:
+    use_sim_time: True
+    smoothing_frequency: 20.0
+    scale_velocities: false
+    feedback_type: "OPEN_LOOP"
+    velocity_scaling_tolerance: 1.0
+    velocity_tracker:
+      plugin: "nav2_velocity_smoother::SimpleVelocityTracker"
+      pos_track_win_width: 0.5
+      rot_track_win_width: 0.5
+    velocity_smoother:
+      plugin: "nav2_velocity_smoother::TrapVelocitySmoother"
+      acc_lim_x: 0.5    # Lower acceleration for humanoid stability
+      acc_lim_y: 0.2
+      acc_lim_theta: 0.5
+      decel_lim_x: -0.5
+      decel_lim_y: -0.2
+      decel_lim_theta: -0.5
+      vel_lim_x: 0.3    # Limited forward speed for balance
+      vel_lim_y: 0.2    # Limited lateral speed
+      vel_lim_theta: 0.5
+    velocity_publisher:
+      plugin: "nav2_velocity_smoother::VelocityPublisher"
+      publish_frequency: 20.0
+      velocity_time_delta: 0.5
+
+# Isaac ROS specific navigation components
+isaac_ros_navigation:
+  ros__parameters:
+    # Isaac ROS Visual SLAM integration
+    visual_slam:
+      enable_online_calibration: true
+      enable_loop_closure: true
+      enable_fisheye_stereo_rectification: true
+      rectified_left_topic_name: "/left/image_rect_color"
+      rectified_right_topic_name: "/right/image_rect_color"
+      left_camera_info_topic_name: "/left/camera_info"
+      right_camera_info_topic_name: "/right/camera_info"
+      left_uri: "file:///tmp/left_calib.yaml"
+      right_uri: "file:///tmp/right_calib.yaml"
+      stereo_namespace: "/stereo_camera"
+      left_optical_frame: "left_camera_optical_frame"
+      right_optical_frame: "right_camera_optical_frame"
+      base_frame: "base_link"
+      publish_tf: true
+      rectification_engine: "cuda"
+
+    # Isaac ROS perception integration
+    perception_integration:
+      enable_depth_camera_processing: true
+      enable_semantic_segmentation: true
+      enable_object_detection: true
+      perception_topic_timeout: 5.0
+      max_detection_range: 10.0
+      min_detection_confidence: 0.7
+
+    # Isaac ROS path planning enhancements
+    enhanced_planning:
+      enable_gpu_path_planning: true
+      enable_dynamic_obstacle_avoidance: true
+      enable_multi_modal_fusion: true
+      planning_update_rate: 10.0
+      gpu_device_id: 0

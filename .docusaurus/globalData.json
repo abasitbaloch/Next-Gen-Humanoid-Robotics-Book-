@@ -1,0 +1,182 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/next-gen-humanoid-robotics-book/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/next-gen-humanoid-robotics-book/docs",
+          "mainDocId": "intro",
+          "docs": [
+            {
+              "id": "capstone/integration",
+              "path": "/next-gen-humanoid-robotics-book/docs/capstone/integration",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "capstone/intro",
+              "path": "/next-gen-humanoid-robotics-book/docs/capstone/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "capstone/validation",
+              "path": "/next-gen-humanoid-robotics-book/docs/capstone/validation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/next-gen-humanoid-robotics-book/docs/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/exercises",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/exercises",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/humanoid-architectures",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/humanoid-architectures",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/intro",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/perception-action-loops",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/perception-action-loops",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/physical-vs-digital-ai",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/physical-vs-digital-ai",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/robot-learning",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/robot-learning",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/sim-to-real",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/sim-to-real",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-1-ros2/validation",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/validation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-digital-twin/environments",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/environments",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-digital-twin/intro",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-digital-twin/robot-models",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/robot-models",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-digital-twin/sensors-physics",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/sensors-physics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-digital-twin/testing-validation",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/testing-validation",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-2-digital-twin/unity-alternative",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/unity-alternative",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-ai-brain/intro",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-ai-brain/manipulation-control",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/manipulation-control",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-ai-brain/navigation-planning",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/navigation-planning",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-ai-brain/perception-systems",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/perception-systems",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-ai-brain/sim-to-real",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/sim-to-real",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-3-ai-brain/synthetic-data",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/synthetic-data",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/autonomous-behaviors",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-4-vla/autonomous-behaviors",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/human-robot-interaction",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-4-vla/human-robot-interaction",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/intro",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-4-vla/intro",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/llm-integration",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-4-vla/llm-integration",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/task-decomposition",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-4-vla/task-decomposition",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module-4-vla/voice-recognition",
+              "path": "/next-gen-humanoid-robotics-book/docs/module-4-vla/voice-recognition",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "setup",
+              "path": "/next-gen-humanoid-robotics-book/docs/setup"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/next-gen-humanoid-robotics-book/docs/intro",
+                "label": "intro"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

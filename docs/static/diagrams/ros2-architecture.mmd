@@ -1,0 +1,71 @@
+# ROS 2 Graph Architecture Diagrams
+
+## Basic ROS 2 Architecture
+
+```mermaid
+graph TB
+    subgraph "ROS 2 System"
+        A[Node: Publisher] -->|"topic_name"| B(("DDS/RMW"))
+        C[Node: Subscriber] -->|"topic_name"| B
+        D[Node: Service Server] -->|"service_name"| B
+        E[Node: Service Client] -->|"service_name"| B
+        F[Node: Action Server] -->|"action_name"| B
+        G[Node: Action Client] -->|"action_name"| B
+    end
+
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style D fill:#e8f5e8
+    style E fill:#fff3e0
+    style F fill:#fce4ec
+    style G fill:#f1f8e9
+```
+
+## ROS 2 Communication Patterns
+
+```mermaid
+graph TB
+    subgraph "Publisher-Subscriber (Topics)"
+        A[Publisher Node] -->|"sensor_data"| B(("DDS Bus"))
+        C[Subscriber Node 1] -->|"sensor_data"| B
+        D[Subscriber Node 2] -->|"sensor_data"| B
+    end
+
+    subgraph "Client-Server (Services)"
+        E[Client Node] <-->|"request/response"| F(("DDS Bus"))
+        G[Server Node] <-->|"request/response"| F
+    end
+
+    subgraph "Action Client-Server"
+        H[Action Client] <-->|"goal/result/feedback"| I(("DDS Bus"))
+        J[Action Server] <-->|"goal/result/feedback"| I
+    end
+```
+
+## ROS 2 Node Architecture
+
+```mermaid
+graph TD
+    A[ROS 2 Node] --> B[rclcpp/rclpy Client Library]
+    B --> C[rcl Common Interface Layer]
+    C --> D[RMW: ROS Middleware]
+    D --> E[DDS Implementation]
+
+    A -.-> F[Node Components]
+    F --> G[Publisher]
+    F --> H[Subscriber]
+    F --> I[Service Server]
+    F --> J[Service Client]
+    F --> K[Action Server]
+    F --> L[Action Client]
+    F --> M[Timer]
+    F --> N[Parameter Server]
+
+    style A fill:#e3f2fd
+    style E fill:#e8f5e8
+    style G fill:#ffebee
+    style H fill:#f3e5f5
+    style I fill:#e0e0e0
+    style J fill:#d7ccc8
+    style K fill:#bcaaa4
+    style L fill:#a1887f

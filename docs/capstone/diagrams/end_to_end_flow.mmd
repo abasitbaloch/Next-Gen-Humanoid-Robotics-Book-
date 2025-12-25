@@ -1,0 +1,26 @@
+sequenceDiagram
+    participant User
+    participant Voice as Voice Processing
+    participant LLM as LLM Planner
+    participant Task as Task Decomposer
+    participant Nav as Navigation
+    participant Perception as Perception
+    participant Manip as Manipulation
+    participant Robot as Physical Robot
+
+    User->>Voice: Speak command
+    Voice->>LLM: Structured command
+    LLM->>Task: Task plan
+    Task->>Nav: Navigation task
+    Task->>Perception: Perception task
+    Task->>Manip: Manipulation task
+
+    Nav->>Robot: Move to location
+    Perception->>Robot: Sense environment
+    Manip->>Robot: Manipulate object
+
+    Robot->>Perception: Sensor feedback
+    Robot->>Nav: Odometry feedback
+    Robot->>Manip: Execution feedback
+
+    Robot->>User: Task completion

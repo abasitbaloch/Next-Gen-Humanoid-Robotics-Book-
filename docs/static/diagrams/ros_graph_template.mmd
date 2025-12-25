@@ -1,0 +1,15 @@
+```mermaid
+graph LR
+    A[ROS 2 Node A] -->|Topic 1| B(ROS 2 Node B)
+    A -->|Service 1| C{ROS 2 Service Server}
+    B -->|Topic 2| D[ROS 2 Node D]
+    E[ROS 2 Node E] -->|Action| F[Action Server]
+
+    subgraph "Robot Hardware"
+        G[Sensor Driver]
+        H[Actuator Driver]
+    end
+
+    G --> A
+    H <---> B
+```

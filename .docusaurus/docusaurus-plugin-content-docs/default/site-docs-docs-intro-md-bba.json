@@ -1,0 +1,23 @@
+{
+  "id": "intro",
+  "title": "Physical AI & Humanoid Robotics",
+  "description": "Welcome to the comprehensive guide on Physical AI & Humanoid Robotics. This book provides a complete learning path from fundamental ROS 2 concepts to advanced Vision-Language-Action systems for building AI-driven humanoid robots.",
+  "source": "@site/docs/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Module 1: Physical AI Foundations and Embodied Intelligence",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/intro"
+  }
+}

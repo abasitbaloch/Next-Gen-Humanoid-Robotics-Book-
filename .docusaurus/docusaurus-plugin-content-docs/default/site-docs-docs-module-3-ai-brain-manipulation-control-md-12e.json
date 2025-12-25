@@ -1,0 +1,27 @@
+{
+  "id": "module-3-ai-brain/manipulation-control",
+  "title": "Manipulation and Control with Isaac",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-3-ai-brain/manipulation-control.md",
+  "sourceDirName": "module-3-ai-brain",
+  "slug": "/module-3-ai-brain/manipulation-control",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/manipulation-control",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-3-ai-brain/manipulation-control.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Navigation and Path Planning with Isaac",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/navigation-planning"
+  },
+  "next": {
+    "title": "Synthetic Data Generation with Isaac",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/synthetic-data"
+  }
+}

@@ -1,0 +1,295 @@
+# API Contracts: Physical AI & Humanoid Robotics Book
+
+## Book Management API
+
+### GET /api/book/info
+**Description**: Get book metadata and information
+**Response**:
+```json
+{
+  "id": "physical-ai-humanoid",
+  "title": "Physical AI & Humanoid Robotics",
+  "version": "1.0.0",
+  "modules": 4,
+  "chapters": 24,
+  "status": "draft|in-progress|complete",
+  "lastUpdated": "2025-12-09T00:00:00Z",
+  "targetAudience": ["computer-science-students", "robotics-learners", "engineers"],
+  "prerequisites": {
+    "python": ">=3.10",
+    "ros2": "humble",
+    "platform": "ubuntu-22.04"
+  }
+}
+```
+
+### GET /api/book/modules
+**Description**: Get list of all modules in the book
+**Response**:
+```json
+{
+  "modules": [
+    {
+      "id": "ros2",
+      "title": "ROS 2 (Robotic Nervous System)",
+      "description": "Core ROS 2 concepts, nodes, topics, services, actions",
+      "chapters": 6,
+      "order": 1,
+      "learningOutcomes": ["create-ros2-nodes", "define-urdf-models", "debug-ros2-systems"]
+    },
+    {
+      "id": "digital-twin",
+      "title": "Digital Twin (Gazebo & Unity)",
+      "description": "Simulation environments, physics, sensors, testing",
+      "chapters": 6,
+      "order": 2,
+      "learningOutcomes": ["create-simulation-environments", "configure-sensors", "validate-in-simulation"]
+    },
+    {
+      "id": "ai-brain",
+      "title": "AI-Robot Brain (NVIDIA Isaac)",
+      "description": "Perception, navigation, planning with Isaac tools",
+      "chapters": 6,
+      "order": 3,
+      "learningOutcomes": ["integrate-perception-systems", "implement-navigation", "execute-manipulation"]
+    },
+    {
+      "id": "vla",
+      "title": "Vision-Language-Action (VLA)",
+      "description": "AI integration, voice commands, LLM planning, autonomous behaviors",
+      "chapters": 6,
+      "order": 4,
+      "learningOutcomes": ["process-voice-input", "integrate-llm-planning", "implement-autonomous-behaviors"]
+    }
+  ]
+}
+```
+
+### GET /api/book/modules/{moduleId}/chapters
+**Description**: Get chapters for a specific module
+**Path Parameters**:
+- moduleId: ros2|digital-twin|ai-brain|vla
+**Response**:
+```json
+{
+  "module": {
+    "id": "ros2",
+    "title": "ROS 2 (Robotic Nervous System)"
+  },
+  "chapters": [
+    {
+      "id": "ros2-fundamentals",
+      "title": "ROS 2 Fundamentals and Architecture",
+      "description": "Introduction to ROS 2 concepts and architecture",
+      "objectives": ["understand-ros2-architecture", "identify-core-components"],
+      "prerequisites": [],
+      "exercises": 1,
+      "codeExamples": 3,
+      "diagrams": 2
+    },
+    {
+      "id": "ros2-nodes",
+      "title": "Nodes and Communication Patterns",
+      "description": "Creating and connecting ROS 2 nodes",
+      "objectives": ["create-publisher-subscriber", "implement-service-client"],
+      "prerequisites": ["ros2-fundamentals"],
+      "exercises": 1,
+      "codeExamples": 4,
+      "diagrams": 3
+    }
+  ]
+}
+```
+
+## Chapter Content API
+
+### GET /api/book/chapters/{chapterId}
+**Description**: Get detailed chapter content
+**Path Parameters**:
+- chapterId: Unique chapter identifier
+**Response**:
+```json
+{
+  "chapter": {
+    "id": "ros2-fundamentals",
+    "title": "ROS 2 Fundamentals and Architecture",
+    "moduleId": "ros2",
+    "moduleTitle": "ROS 2 (Robotic Nervous System)",
+    "objectives": [
+      "Understand ROS 2 architecture",
+      "Identify core components",
+      "Explain node communication"
+    ],
+    "content": "# Chapter content in Markdown format...",
+    "diagrams": [
+      {
+        "id": "ros2-architecture",
+        "type": "mermaid",
+        "title": "ROS 2 Architecture Diagram",
+        "source": "graph LR; A[Node] --> B[Topic]; A --> C[Service]"
+      }
+    ],
+    "codeExamples": [
+      {
+        "id": "simple-publisher",
+        "title": "Simple Publisher Node",
+        "language": "python",
+        "source": "import rclpy...",
+        "path": "/code/ros2/simple_publisher.py"
+      }
+    ],
+    "exercises": [
+      {
+        "id": "create-publisher",
+        "title": "Create Your First Publisher",
+        "description": "Implement a simple publisher node",
+        "difficulty": "beginner"
+      }
+    ],
+    "prerequisites": [],
+    "nextChapter": "ros2-nodes"
+  }
+}
+```
+
+## Code Example API
+
+### GET /api/book/code-examples/{exampleId}
+**Description**: Get code example with validation information
+**Path Parameters**:
+- exampleId: Unique code example identifier
+**Response**:
+```json
+{
+  "example": {
+    "id": "simple-publisher",
+    "title": "Simple Publisher Node",
+    "language": "python",
+    "module": "ros2",
+    "chapter": "ros2-fundamentals",
+    "source": "import rclpy\nfrom std_msgs.msg import String\n\nclass MinimalPublisher(Node):\n    def __init__(self):\n        super().__init__('minimal_publisher')\n        self.publisher_ = self.create_publisher(String, 'topic', 10)\n        timer_period = 0.5  # seconds\n        self.timer = self.create_timer(timer_period, self.timer_callback)\n        self.i = 0\n\n    def timer_callback(self):\n        msg = String()\n        msg.data = 'Hello World: %d' % self.i\n        self.publisher_.publish(msg)\n        self.get_logger().info('Publishing: \"%s\"' % msg.data)\n        self.i += 1\n\n\ndef main(args=None):\n    rclpy.init(args=args)\n    minimal_publisher = MinimalPublisher()\n    rclpy.spin(minimal_publisher)\n    minimal_publisher.destroy_node()\n    rclpy.shutdown()\n",
+    "dependencies": [
+      "rclpy",
+      "std_msgs"
+    ],
+    "platform": {
+      "os": "ubuntu-22.04",
+      "ros2": "humble"
+    },
+    "validation": {
+      "expectedOutput": "Publishing: \"Hello World: X\"",
+      "steps": [
+        "ros2 run my_package simple_publisher",
+        "Observe the output messages"
+      ],
+      "successCriteria": "Messages published at 2Hz rate"
+    }
+  }
+}
+```
+
+## Capstone Integration API
+
+### GET /api/book/capstone/autonomous-humanoid
+**Description**: Get capstone project specification
+**Response**:
+```json
+{
+  "capstone": {
+    "id": "autonomous-humanoid",
+    "title": "Autonomous Humanoid",
+    "description": "End-to-end integration of voice → plan → navigation → perception → manipulation",
+    "components": [
+      {
+        "name": "Voice Processing",
+        "module": "vla",
+        "description": "Speech-to-text and command interpretation"
+      },
+      {
+        "name": "Task Planning",
+        "module": "vla",
+        "description": "LLM-based task decomposition"
+      },
+      {
+        "name": "Navigation",
+        "module": "ai-brain",
+        "description": "Path planning and execution with Nav2"
+      },
+      {
+        "name": "Perception",
+        "module": "ai-brain",
+        "description": "Object detection and scene understanding"
+      },
+      {
+        "name": "Manipulation",
+        "module": "ai-brain",
+        "description": "Arm control and grasping"
+      }
+    ],
+    "integrationPoints": [
+      {
+        "name": "Voice to Plan",
+        "description": "Voice commands trigger LLM planning"
+      },
+      {
+        "name": "Plan to Nav",
+        "description": "Planning outputs navigation goals"
+      },
+      {
+        "name": "Nav to Perception",
+        "description": "Navigation triggers perception when needed"
+      },
+      {
+        "name": "Perception to Manipulation",
+        "description": "Perception outputs enable manipulation"
+      }
+    ],
+    "validation": {
+      "endToEndFlow": "Voice command → LLM plan → Nav2 execution → Object perception → Manipulation action",
+      "successCriteria": "Complete task execution from voice command to physical action"
+    }
+  }
+}
+```
+
+## Validation API
+
+### POST /api/book/validate/code-example
+**Description**: Validate a code example against target platform
+**Request**:
+```json
+{
+  "exampleId": "simple-publisher",
+  "platform": {
+    "os": "ubuntu-22.04",
+    "ros2": "humble",
+    "hardware": "rtx-workstation"
+  }
+}
+**Response**:
+```json
+{
+  "validationId": "val-12345",
+  "exampleId": "simple-publisher",
+  "status": "passed|failed|pending",
+  "results": {
+    "compilation": {
+      "status": "passed",
+      "message": "Code compiled successfully"
+    },
+    "execution": {
+      "status": "passed",
+      "message": "Published messages at expected rate"
+    },
+    "platformCompatibility": {
+      "status": "passed",
+      "message": "Compatible with target platform"
+    }
+  },
+  "logs": [
+    "Code compilation successful",
+    "Execution test passed",
+    "All dependencies satisfied"
+  ]
+}
+```

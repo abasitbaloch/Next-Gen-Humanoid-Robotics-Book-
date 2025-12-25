@@ -1,0 +1,54 @@
+graph TB
+    subgraph "User Interaction Layer"
+        A[Voice Command] --> B[Speech Processing]
+    end
+
+    subgraph "AI Planning Layer"
+        B --> C[LLM Task Planning]
+        C --> D[Task Decomposition]
+    end
+
+    subgraph "Execution Layer"
+        D --> E[Navigation System]
+        D --> F[Perception System]
+        D --> G[Manipulation System]
+    end
+
+    subgraph "Robot Control Layer"
+        E --> H[Path Planning]
+        E --> I[Local Navigation]
+        F --> J[Object Detection]
+        F --> K[Scene Understanding]
+        G --> L[Arm Control]
+        G --> M[Gripper Control]
+    end
+
+    subgraph "Hardware Layer"
+        H --> N[Motor Controllers]
+        I --> N
+        L --> N
+        M --> N
+        J --> O[Sensors]
+        K --> O
+    end
+
+    subgraph "Validation Layer"
+        P[Capstone Integration] --> Q[End-to-End Validation]
+        Q --> R[Integration Metrics]
+    end
+
+    N --> S[Physical Robot]
+    O --> S
+    S --> T[Feedback Loop]
+    T --> A
+
+    P --> D
+    P --> E
+    P --> F
+    P --> G
+
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style S fill:#e8f5e8
+    style P fill:#fff3e0
+    style Q fill:#fce4ec

@@ -1,0 +1,451 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "noIndex": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "tutorialSidebar": [
+      {
+        "type": "link",
+        "label": "Physical AI & Humanoid Robotics",
+        "href": "/next-gen-humanoid-robotics-book/docs/intro",
+        "docId": "intro",
+        "unlisted": false
+      },
+      {
+        "type": "category",
+        "label": "Module 1: Physical AI Foundations",
+        "items": [
+          {
+            "type": "link",
+            "label": "Module 1: Physical AI Foundations and Embodied Intelligence",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/intro",
+            "docId": "module-1-ros2/intro",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Perception-Action Loops and Robot Cognition",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/perception-action-loops",
+            "docId": "module-1-ros2/perception-action-loops",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Sim-to-Real Challenges in Robotics",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/sim-to-real",
+            "docId": "module-1-ros2/sim-to-real",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Humanoid Robot Architectures and Design Principles",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/humanoid-architectures",
+            "docId": "module-1-ros2/humanoid-architectures",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Physical AI vs. Digital AI: A Comprehensive Comparison",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/physical-vs-digital-ai",
+            "docId": "module-1-ros2/physical-vs-digital-ai",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Robot Learning and Adaptation Concepts",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/robot-learning",
+            "docId": "module-1-ros2/robot-learning",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Module 1 Exercises: Physical AI Concepts",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/exercises",
+            "docId": "module-1-ros2/exercises",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Module 1 Validation: Learning Objectives Assessment",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/validation",
+            "docId": "module-1-ros2/validation",
+            "unlisted": false
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 2: Digital Twin (Gazebo & Unity)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Module 2: Digital Twin (Gazebo & Unity)",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/intro",
+            "docId": "module-2-digital-twin/intro",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Robot Models in Simulation Environments",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/robot-models",
+            "docId": "module-2-digital-twin/robot-models",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Sensors and Physics Configuration",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/sensors-physics",
+            "docId": "module-2-digital-twin/sensors-physics",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Environment Design and Scenarios",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/environments",
+            "docId": "module-2-digital-twin/environments",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Testing and Validation in Simulation",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/testing-validation",
+            "docId": "module-2-digital-twin/testing-validation",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Unity Alternative Setup",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/unity-alternative",
+            "docId": "module-2-digital-twin/unity-alternative",
+            "unlisted": false
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 3: AI-Robot Brain (NVIDIA Isaac)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Module 3: AI-Robot Brain (NVIDIA Isaac)",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/intro",
+            "docId": "module-3-ai-brain/intro",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Perception Systems with Isaac ROS",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/perception-systems",
+            "docId": "module-3-ai-brain/perception-systems",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Navigation and Path Planning with Isaac",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/navigation-planning",
+            "docId": "module-3-ai-brain/navigation-planning",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Manipulation and Control with Isaac",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/manipulation-control",
+            "docId": "module-3-ai-brain/manipulation-control",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Synthetic Data Generation with Isaac",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/synthetic-data",
+            "docId": "module-3-ai-brain/synthetic-data",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Sim-to-Real Transfer Techniques",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/sim-to-real",
+            "docId": "module-3-ai-brain/sim-to-real",
+            "unlisted": false
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Module 4: Vision-Language-Action (VLA)",
+        "items": [
+          {
+            "type": "link",
+            "label": "Module 4: Vision-Language-Action (VLA)",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-4-vla/intro",
+            "docId": "module-4-vla/intro",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Voice Recognition and Processing",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-4-vla/voice-recognition",
+            "docId": "module-4-vla/voice-recognition",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "LLM Integration for Task Planning",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-4-vla/llm-integration",
+            "docId": "module-4-vla/llm-integration",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Task Decomposition Systems",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-4-vla/task-decomposition",
+            "docId": "module-4-vla/task-decomposition",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Autonomous Behaviors",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-4-vla/autonomous-behaviors",
+            "docId": "module-4-vla/autonomous-behaviors",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Human-Robot Interaction",
+            "href": "/next-gen-humanoid-robotics-book/docs/module-4-vla/human-robot-interaction",
+            "docId": "module-4-vla/human-robot-interaction",
+            "unlisted": false
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      },
+      {
+        "type": "category",
+        "label": "Capstone: Autonomous Humanoid",
+        "items": [
+          {
+            "type": "link",
+            "label": "Capstone: Autonomous Humanoid Integration",
+            "href": "/next-gen-humanoid-robotics-book/docs/capstone/intro",
+            "docId": "capstone/intro",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "System Integration",
+            "href": "/next-gen-humanoid-robotics-book/docs/capstone/integration",
+            "docId": "capstone/integration",
+            "unlisted": false
+          },
+          {
+            "type": "link",
+            "label": "Validation and Testing",
+            "href": "/next-gen-humanoid-robotics-book/docs/capstone/validation",
+            "docId": "capstone/validation",
+            "unlisted": false
+          }
+        ],
+        "collapsed": true,
+        "collapsible": true
+      }
+    ]
+  },
+  "docs": {
+    "capstone/integration": {
+      "id": "capstone/integration",
+      "title": "System Integration",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "capstone/intro": {
+      "id": "capstone/intro",
+      "title": "Capstone: Autonomous Humanoid Integration",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "capstone/validation": {
+      "id": "capstone/validation",
+      "title": "Validation and Testing",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "intro": {
+      "id": "intro",
+      "title": "Physical AI & Humanoid Robotics",
+      "description": "Welcome to the comprehensive guide on Physical AI & Humanoid Robotics. This book provides a complete learning path from fundamental ROS 2 concepts to advanced Vision-Language-Action systems for building AI-driven humanoid robots.",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/exercises": {
+      "id": "module-1-ros2/exercises",
+      "title": "Module 1 Exercises: Physical AI Concepts",
+      "description": "Exercise 1: Physical AI vs. Digital AI Analysis",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/humanoid-architectures": {
+      "id": "module-1-ros2/humanoid-architectures",
+      "title": "Humanoid Robot Architectures and Design Principles",
+      "description": "Learning Objectives",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/intro": {
+      "id": "module-1-ros2/intro",
+      "title": "Module 1: Physical AI Foundations and Embodied Intelligence",
+      "description": "Learning Objectives",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/perception-action-loops": {
+      "id": "module-1-ros2/perception-action-loops",
+      "title": "Perception-Action Loops and Robot Cognition",
+      "description": "Learning Objectives",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/physical-vs-digital-ai": {
+      "id": "module-1-ros2/physical-vs-digital-ai",
+      "title": "Physical AI vs. Digital AI: A Comprehensive Comparison",
+      "description": "Learning Objectives",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/robot-learning": {
+      "id": "module-1-ros2/robot-learning",
+      "title": "Robot Learning and Adaptation Concepts",
+      "description": "Learning Objectives",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/sim-to-real": {
+      "id": "module-1-ros2/sim-to-real",
+      "title": "Sim-to-Real Challenges in Robotics",
+      "description": "Learning Objectives",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-1-ros2/validation": {
+      "id": "module-1-ros2/validation",
+      "title": "Module 1 Validation: Learning Objectives Assessment",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-2-digital-twin/environments": {
+      "id": "module-2-digital-twin/environments",
+      "title": "Environment Design and Scenarios",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-2-digital-twin/intro": {
+      "id": "module-2-digital-twin/intro",
+      "title": "Module 2: Digital Twin (Gazebo & Unity)",
+      "description": "Introduction",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-2-digital-twin/robot-models": {
+      "id": "module-2-digital-twin/robot-models",
+      "title": "Robot Models in Simulation Environments",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-2-digital-twin/sensors-physics": {
+      "id": "module-2-digital-twin/sensors-physics",
+      "title": "Sensors and Physics Configuration",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-2-digital-twin/testing-validation": {
+      "id": "module-2-digital-twin/testing-validation",
+      "title": "Testing and Validation in Simulation",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-2-digital-twin/unity-alternative": {
+      "id": "module-2-digital-twin/unity-alternative",
+      "title": "Unity Alternative Setup",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-3-ai-brain/intro": {
+      "id": "module-3-ai-brain/intro",
+      "title": "Module 3: AI-Robot Brain (NVIDIA Isaac)",
+      "description": "Introduction",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-3-ai-brain/manipulation-control": {
+      "id": "module-3-ai-brain/manipulation-control",
+      "title": "Manipulation and Control with Isaac",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-3-ai-brain/navigation-planning": {
+      "id": "module-3-ai-brain/navigation-planning",
+      "title": "Navigation and Path Planning with Isaac",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-3-ai-brain/perception-systems": {
+      "id": "module-3-ai-brain/perception-systems",
+      "title": "Perception Systems with Isaac ROS",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-3-ai-brain/sim-to-real": {
+      "id": "module-3-ai-brain/sim-to-real",
+      "title": "Sim-to-Real Transfer Techniques",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-3-ai-brain/synthetic-data": {
+      "id": "module-3-ai-brain/synthetic-data",
+      "title": "Synthetic Data Generation with Isaac",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-4-vla/autonomous-behaviors": {
+      "id": "module-4-vla/autonomous-behaviors",
+      "title": "Autonomous Behaviors",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-4-vla/human-robot-interaction": {
+      "id": "module-4-vla/human-robot-interaction",
+      "title": "Human-Robot Interaction",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-4-vla/intro": {
+      "id": "module-4-vla/intro",
+      "title": "Module 4: Vision-Language-Action (VLA)",
+      "description": "Introduction",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-4-vla/llm-integration": {
+      "id": "module-4-vla/llm-integration",
+      "title": "LLM Integration for Task Planning",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-4-vla/task-decomposition": {
+      "id": "module-4-vla/task-decomposition",
+      "title": "Task Decomposition Systems",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "module-4-vla/voice-recognition": {
+      "id": "module-4-vla/voice-recognition",
+      "title": "Voice Recognition and Processing",
+      "description": "Overview",
+      "sidebar": "tutorialSidebar"
+    },
+    "setup": {
+      "id": "setup",
+      "title": "Development Environment Setup",
+      "description": "This guide will help you set up the development environment for the Physical AI & Humanoid Robotics book."
+    }
+  }
+}

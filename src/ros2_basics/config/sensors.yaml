@@ -1,0 +1,137 @@
+# Sensor Configuration for Humanoid Robot in Simulation
+
+## Camera Configuration
+camera:
+  ros__parameters:
+    # Camera parameters
+    width: 640
+    height: 480
+    fps: 30
+    fov_horizontal: 60  # degrees
+    fov_vertical: 45    # degrees
+
+    # Topic settings
+    image_topic: "/camera/rgb/image_raw"
+    camera_info_topic: "/camera/rgb/camera_info"
+
+    # Noise parameters
+    noise_mean: 0.0
+    noise_stddev: 0.01
+
+    # Distortion parameters (approximate)
+    distortion_k1: 0.0
+    distortion_k2: 0.0
+    distortion_k3: 0.0
+    distortion_p1: 0.0
+    distortion_p2: 0.0
+
+## LIDAR Configuration
+lidar:
+  ros__parameters:
+    # LIDAR parameters
+    update_rate: 10.0
+    range_min: 0.1
+    range_max: 10.0
+    angle_min: -3.14159  # -π radians (-180 degrees)
+    angle_max: 3.14159   # π radians (180 degrees)
+    angle_increment: 0.0174533  # 1 degree in radians
+
+    # Topic settings
+    scan_topic: "/scan"
+    frame_id: "lidar_link"
+
+    # Noise parameters
+    noise_stddev: 0.01
+
+## IMU Configuration
+imu:
+  ros__parameters:
+    # IMU parameters
+    update_rate: 100.0
+    frame_id: "imu_link"
+
+    # Topic settings
+    data_topic: "/imu/data"
+    magnetic_field_topic: "/imu/magnetic_field"
+
+    # Noise parameters for accelerometer
+    linear_acceleration_stddev: 0.017
+    linear_acceleration_bias_mean: 0.0
+    linear_acceleration_bias_stddev: 0.001
+
+    # Noise parameters for gyroscope
+    angular_velocity_stddev: 0.001
+    angular_velocity_bias_mean: 0.0
+    angular_velocity_bias_stddev: 0.0001
+
+    # Noise parameters for magnetometer
+    magnetic_field_stddev: 0.0001
+    magnetic_field_bias_mean: 0.0
+    magnetic_field_bias_stddev: 0.00001
+
+## Force/Torque Sensor Configuration
+ft_sensor:
+  ros__parameters:
+    # Force/Torque parameters
+    update_rate: 100.0
+    frame_id: "ft_sensor_link"
+
+    # Topic settings
+    wrench_topic: "/ft_sensor/wrench"
+
+    # Noise parameters
+    force_noise_stddev: 0.01
+    torque_noise_stddev: 0.001
+
+## GPS Configuration (for outdoor scenarios)
+gps:
+  ros__parameters:
+    # GPS parameters
+    update_rate: 1.0
+    frame_id: "gps_link"
+
+    # Topic settings
+    fix_topic: "/gps/fix"
+    velocity_topic: "/gps/vel"
+
+    # Accuracy parameters (meters)
+    position_accuracy: 2.0
+    altitude_accuracy: 5.0
+    velocity_accuracy: 0.1
+
+## Joint State Configuration
+joint_state_publisher:
+  ros__parameters:
+    # Joint state parameters
+    rate: 50
+    source_list: ["joint_states"]
+
+    # Joint state noise (if needed for simulation)
+    noise_enabled: true
+    noise_stddev: 0.001
+
+## Robot State Publisher Configuration
+robot_state_publisher:
+  ros__parameters:
+    # Robot state publisher parameters
+    publish_frequency: 50.0
+    use_tf_static: true
+    ignore_timestamp: false
+
+    # URDF file path
+    robot_description: "package://ros2_basics/urdf/humanoid_gazebo.urdf.xacro"
+
+## Sensor Processing Configuration
+sensor_processing:
+  ros__parameters:
+    # Image processing parameters
+    rectify_image: true
+    undistort_image: true
+
+    # Point cloud processing
+    pointcloud_decimation: 4
+    pointcloud_queue_size: 5
+
+    # Sensor fusion parameters
+    enable_sensor_fusion: true
+    fusion_frequency: 50.0

@@ -1,0 +1,27 @@
+{
+  "id": "module-1-ros2/intro",
+  "title": "Module 1: Physical AI Foundations and Embodied Intelligence",
+  "description": "Learning Objectives",
+  "source": "@site/docs/docs/module-1-ros2/intro.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/intro",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-1-ros2/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Physical AI & Humanoid Robotics",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/intro"
+  },
+  "next": {
+    "title": "Perception-Action Loops and Robot Cognition",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/perception-action-loops"
+  }
+}

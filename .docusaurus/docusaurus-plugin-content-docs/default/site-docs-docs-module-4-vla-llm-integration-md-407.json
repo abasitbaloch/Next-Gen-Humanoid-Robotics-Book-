@@ -1,0 +1,27 @@
+{
+  "id": "module-4-vla/llm-integration",
+  "title": "LLM Integration for Task Planning",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-4-vla/llm-integration.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/llm-integration",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/llm-integration",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-4-vla/llm-integration.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Voice Recognition and Processing",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/voice-recognition"
+  },
+  "next": {
+    "title": "Task Decomposition Systems",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/task-decomposition"
+  }
+}

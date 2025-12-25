@@ -1,0 +1,27 @@
+{
+  "id": "module-1-ros2/validation",
+  "title": "Module 1 Validation: Learning Objectives Assessment",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-1-ros2/validation.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/validation",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/validation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-1-ros2/validation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 8,
+  "frontMatter": {
+    "sidebar_position": 8
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 1 Exercises: Physical AI Concepts",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/exercises"
+  },
+  "next": {
+    "title": "Module 2: Digital Twin (Gazebo & Unity)",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/intro"
+  }
+}

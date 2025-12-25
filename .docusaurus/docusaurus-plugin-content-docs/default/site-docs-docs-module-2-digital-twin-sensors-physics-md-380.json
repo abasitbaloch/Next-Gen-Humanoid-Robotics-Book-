@@ -1,0 +1,27 @@
+{
+  "id": "module-2-digital-twin/sensors-physics",
+  "title": "Sensors and Physics Configuration",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-2-digital-twin/sensors-physics.md",
+  "sourceDirName": "module-2-digital-twin",
+  "slug": "/module-2-digital-twin/sensors-physics",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/sensors-physics",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-2-digital-twin/sensors-physics.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Robot Models in Simulation Environments",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/robot-models"
+  },
+  "next": {
+    "title": "Environment Design and Scenarios",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/environments"
+  }
+}

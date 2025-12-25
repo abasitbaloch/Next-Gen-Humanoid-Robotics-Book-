@@ -1,0 +1,27 @@
+{
+  "id": "module-1-ros2/perception-action-loops",
+  "title": "Perception-Action Loops and Robot Cognition",
+  "description": "Learning Objectives",
+  "source": "@site/docs/docs/module-1-ros2/perception-action-loops.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/perception-action-loops",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/perception-action-loops",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-1-ros2/perception-action-loops.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 1: Physical AI Foundations and Embodied Intelligence",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/intro"
+  },
+  "next": {
+    "title": "Sim-to-Real Challenges in Robotics",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/sim-to-real"
+  }
+}

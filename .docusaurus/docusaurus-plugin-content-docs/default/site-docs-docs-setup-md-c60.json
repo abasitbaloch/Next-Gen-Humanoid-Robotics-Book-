@@ -1,0 +1,15 @@
+{
+  "id": "setup",
+  "title": "Development Environment Setup",
+  "description": "This guide will help you set up the development environment for the Physical AI & Humanoid Robotics book.",
+  "source": "@site/docs/docs/setup.md",
+  "sourceDirName": ".",
+  "slug": "/setup",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/setup",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/setup.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {}
+}

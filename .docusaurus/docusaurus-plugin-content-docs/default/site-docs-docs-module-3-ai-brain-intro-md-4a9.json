@@ -1,0 +1,27 @@
+{
+  "id": "module-3-ai-brain/intro",
+  "title": "Module 3: AI-Robot Brain (NVIDIA Isaac)",
+  "description": "Introduction",
+  "source": "@site/docs/docs/module-3-ai-brain/intro.md",
+  "sourceDirName": "module-3-ai-brain",
+  "slug": "/module-3-ai-brain/intro",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-3-ai-brain/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Unity Alternative Setup",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/unity-alternative"
+  },
+  "next": {
+    "title": "Perception Systems with Isaac ROS",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/perception-systems"
+  }
+}

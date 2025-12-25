@@ -1,0 +1,27 @@
+{
+  "id": "module-4-vla/intro",
+  "title": "Module 4: Vision-Language-Action (VLA)",
+  "description": "Introduction",
+  "source": "@site/docs/docs/module-4-vla/intro.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/intro",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-4-vla/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Sim-to-Real Transfer Techniques",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/sim-to-real"
+  },
+  "next": {
+    "title": "Voice Recognition and Processing",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/voice-recognition"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "module-4-vla/human-robot-interaction",
+  "title": "Human-Robot Interaction",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-4-vla/human-robot-interaction.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/human-robot-interaction",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/human-robot-interaction",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-4-vla/human-robot-interaction.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Autonomous Behaviors",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/autonomous-behaviors"
+  },
+  "next": {
+    "title": "Capstone: Autonomous Humanoid Integration",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/intro"
+  }
+}

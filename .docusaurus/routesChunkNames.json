@@ -1,0 +1,189 @@
+{
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug-b30": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug/config-3b8": {
+    "__comp": "__comp---theme-debug-config-23-a-2ff",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug/content-7b4": {
+    "__comp": "__comp---theme-debug-contentba-8-ce7",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    },
+    "allContent": "allContent---next-gen-humanoid-robotics-book-docusaurus-debug-content-246-6e8"
+  },
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug/globalData-60a": {
+    "__comp": "__comp---theme-debug-global-dataede-0fa",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug/metadata-fc0": {
+    "__comp": "__comp---theme-debug-site-metadata-68-e-3d4",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug/registry-dec": {
+    "__comp": "__comp---theme-debug-registry-679-501",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/__docusaurus/debug/routes-e33": {
+    "__comp": "__comp---theme-debug-routes-946-699",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docusaurus-debug-0-ff-317"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/docs-d28": {
+    "__comp": "__comp---theme-docs-root-5-e-9-0b6",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-docs-552-f19"
+    }
+  },
+  "/next-gen-humanoid-robotics-book/docs-f76": {
+    "__comp": "__comp---theme-doc-version-roota-7-b-5de",
+    "version": "version---next-gen-humanoid-robotics-book-docs-935-f49"
+  },
+  "/next-gen-humanoid-robotics-book/docs-bca": {
+    "__comp": "__comp---theme-doc-roota-94-67a"
+  },
+  "/next-gen-humanoid-robotics-book/docs/capstone/integration-aa9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-capstone-integrationaab-2e3"
+  },
+  "/next-gen-humanoid-robotics-book/docs/capstone/intro-c3d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-capstone-intro-134-3a5"
+  },
+  "/next-gen-humanoid-robotics-book/docs/capstone/validation-ce4": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-capstone-validation-1-b-0-82b"
+  },
+  "/next-gen-humanoid-robotics-book/docs/intro-450": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-introbba-166"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/exercises-227": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-exercisescd-7-bef"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/humanoid-architectures-27d": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-humanoid-architecturesf-4-d-0c7"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/intro-d7e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-intro-001-353"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/perception-action-loops-e99": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-perception-action-loops-0-f-7-be3"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/physical-vs-digital-ai-60b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-physical-vs-digital-ai-365-b60"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/robot-learning-c82": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-robot-learningdbd-b0d"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/sim-to-real-206": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-sim-to-real-919-89d"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-1-ros2/validation-582": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-1-ros-2-validation-6-c-3-881"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/environments-977": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-2-digital-twin-environments-05-b-a15"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/intro-3b8": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-2-digital-twin-intro-16-c-83e"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/robot-models-432": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-2-digital-twin-robot-modelsfdd-92d"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/sensors-physics-11f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-2-digital-twin-sensors-physics-380-c18"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/testing-validation-9bd": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-2-digital-twin-testing-validation-6-cb-a14"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/unity-alternative-773": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-2-digital-twin-unity-alternative-17-d-0ca"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/intro-ac0": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-3-ai-brain-intro-4-a-9-206"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/manipulation-control-564": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-3-ai-brain-manipulation-control-12-e-8c1"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/navigation-planning-b98": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-3-ai-brain-navigation-planning-038-dba"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/perception-systems-1a6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-3-ai-brain-perception-systemsbac-bcb"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/sim-to-real-2f9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-3-ai-brain-sim-to-realb-53-4bf"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/synthetic-data-9e7": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-3-ai-brain-synthetic-data-7-d-4-f95"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-4-vla/autonomous-behaviors-f25": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-4-vla-autonomous-behaviors-342-436"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-4-vla/human-robot-interaction-5d6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-4-vla-human-robot-interaction-38-f-678"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-4-vla/intro-53c": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-4-vla-intro-59-c-e90"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-4-vla/llm-integration-a5e": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-4-vla-llm-integration-407-653"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-4-vla/task-decomposition-3ff": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-4-vla-task-decomposition-5-cc-147"
+  },
+  "/next-gen-humanoid-robotics-book/docs/module-4-vla/voice-recognition-93f": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-module-4-vla-voice-recognitiond-73-24e"
+  },
+  "/next-gen-humanoid-robotics-book/docs/setup-1b6": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---next-gen-humanoid-robotics-book-docs-setupc-60-521"
+  },
+  "/next-gen-humanoid-robotics-book/-016": {
+    "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
+    "__context": {
+      "plugin": "plugin---next-gen-humanoid-robotics-book-f-13-7f7"
+    },
+    "config": "config---next-gen-humanoid-robotics-book-5-e-9-abe"
+  }
+}

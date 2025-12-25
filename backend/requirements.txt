@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+qdrant-client
+fastembed
+httpx
+beautifulsoup4
+requests
+pydantic
+lxml
+psycopg2-binary
+python-dotenv

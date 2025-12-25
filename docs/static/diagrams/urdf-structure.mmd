@@ -1,0 +1,32 @@
+# URDF Structure Visualization Diagrams
+
+## Basic URDF Structure
+
+```mermaid
+graph TD
+    A[Robot Element] --> B[Link Elements]
+    A --> C[Joint Elements]
+    A --> D[Material Elements]
+    A --> E[Gazebo Elements]
+
+    B --> B1[Visual Element]
+    B --> B2[Collision Element]
+    B --> B3[Inertial Element]
+
+    C --> C1[Joint Type: Fixed/Revolute/etc]
+    C --> C2[Parent Link]
+    C --> C3[Child Link]
+    C --> C4[Origin/Transform]
+    C --> C5[Axis]
+    C --> C6[Limit]
+
+    B1 --> B1a[Geometry: Box/Cylinder/Sphere/Mesh]
+    B1 --> B1b[Material]
+    B2 --> B2a[Geometry: Box/Cylinder/Sphere/Mesh]
+
+    style A fill:#e3f2fd
+    style B fill:#e8f5e8
+    style C fill:#fff3e0
+    style B1 fill:#f3e5f5
+    style B2 fill:#ffebee
+    style B3 fill:#e0f2f1

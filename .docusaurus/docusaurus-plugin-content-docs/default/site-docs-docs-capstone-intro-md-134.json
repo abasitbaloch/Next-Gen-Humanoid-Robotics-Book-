@@ -1,0 +1,27 @@
+{
+  "id": "capstone/intro",
+  "title": "Capstone: Autonomous Humanoid Integration",
+  "description": "Overview",
+  "source": "@site/docs/docs/capstone/intro.md",
+  "sourceDirName": "capstone",
+  "slug": "/capstone/intro",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/capstone/intro.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 1,
+  "frontMatter": {
+    "sidebar_position": 1
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Human-Robot Interaction",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/human-robot-interaction"
+  },
+  "next": {
+    "title": "System Integration",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/integration"
+  }
+}

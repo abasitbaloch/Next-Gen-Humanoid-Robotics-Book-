@@ -1,0 +1,27 @@
+{
+  "id": "module-2-digital-twin/environments",
+  "title": "Environment Design and Scenarios",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-2-digital-twin/environments.md",
+  "sourceDirName": "module-2-digital-twin",
+  "slug": "/module-2-digital-twin/environments",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/environments",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-2-digital-twin/environments.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 4,
+  "frontMatter": {
+    "sidebar_position": 4
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Sensors and Physics Configuration",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/sensors-physics"
+  },
+  "next": {
+    "title": "Testing and Validation in Simulation",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/testing-validation"
+  }
+}

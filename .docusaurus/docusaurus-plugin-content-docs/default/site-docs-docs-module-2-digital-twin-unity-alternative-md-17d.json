@@ -1,0 +1,27 @@
+{
+  "id": "module-2-digital-twin/unity-alternative",
+  "title": "Unity Alternative Setup",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-2-digital-twin/unity-alternative.md",
+  "sourceDirName": "module-2-digital-twin",
+  "slug": "/module-2-digital-twin/unity-alternative",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/unity-alternative",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-2-digital-twin/unity-alternative.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 6,
+  "frontMatter": {
+    "sidebar_position": 6
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Testing and Validation in Simulation",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-2-digital-twin/testing-validation"
+  },
+  "next": {
+    "title": "Module 3: AI-Robot Brain (NVIDIA Isaac)",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-3-ai-brain/intro"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "module-4-vla/autonomous-behaviors",
+  "title": "Autonomous Behaviors",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-4-vla/autonomous-behaviors.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/autonomous-behaviors",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/autonomous-behaviors",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-4-vla/autonomous-behaviors.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Task Decomposition Systems",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/task-decomposition"
+  },
+  "next": {
+    "title": "Human-Robot Interaction",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/human-robot-interaction"
+  }
+}

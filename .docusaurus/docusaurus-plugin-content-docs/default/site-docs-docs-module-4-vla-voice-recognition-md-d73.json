@@ -1,0 +1,27 @@
+{
+  "id": "module-4-vla/voice-recognition",
+  "title": "Voice Recognition and Processing",
+  "description": "Overview",
+  "source": "@site/docs/docs/module-4-vla/voice-recognition.md",
+  "sourceDirName": "module-4-vla",
+  "slug": "/module-4-vla/voice-recognition",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/voice-recognition",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-4-vla/voice-recognition.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 2,
+  "frontMatter": {
+    "sidebar_position": 2
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Module 4: Vision-Language-Action (VLA)",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/intro"
+  },
+  "next": {
+    "title": "LLM Integration for Task Planning",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-4-vla/llm-integration"
+  }
+}

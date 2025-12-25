@@ -1,0 +1,23 @@
+{
+  "id": "capstone/validation",
+  "title": "Validation and Testing",
+  "description": "Overview",
+  "source": "@site/docs/docs/capstone/validation.md",
+  "sourceDirName": "capstone",
+  "slug": "/capstone/validation",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/validation",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/capstone/validation.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 3,
+  "frontMatter": {
+    "sidebar_position": 3
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "System Integration",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/capstone/integration"
+  }
+}

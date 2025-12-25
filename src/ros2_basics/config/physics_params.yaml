@@ -1,0 +1,384 @@
+# Physics Configuration for Humanoid Robot in Simulation
+
+## Gazebo Physics Engine Configuration
+gazebo_physics:
+  ros__parameters:
+    # Physics engine type (ode, bullet, dart)
+    engine_type: "ode"
+
+    # Time step configuration
+    max_step_size: 0.001  # 1ms simulation time step
+    real_time_factor: 1.0  # Real-time simulation
+    real_time_update_rate: 1000  # Hz
+
+    # Gravity settings
+    gravity_x: 0.0
+    gravity_y: 0.0
+    gravity_z: -9.81
+
+    # Solver configuration
+    solver_type: "quick"  # quick, world
+    solver_iterations: 100
+    solver_sor: 1.3
+
+    # Constraint configuration
+    constraint_cfm: 0.0
+    constraint_erp: 0.2
+    constraint_max_correcting_vel: 100.0
+    constraint_surface_layer: 0.001
+
+## Robot-Specific Physics Parameters
+humanoid_robot_physics:
+  ros__parameters:
+    # Overall robot parameters
+    robot_mass_kg: 50.0  # Total robot mass (example for adult-sized humanoid)
+    robot_com_height_m: 0.8  # Center of mass height
+    robot_base_link: "base_link"
+
+    # Balance parameters
+    balance_stability_margin: 0.05  # Safety margin for balance (meters)
+    com_tracking_gain: 50.0  # Center of mass tracking gain
+    balance_control_frequency: 200.0  # Balance control frequency (Hz)
+
+    # Joint dynamics parameters
+    joint_dynamics:
+      # Hip joints (for walking)
+      hip_yaw_joint:
+        friction: 5.0
+        damping: 10.0
+        spring_stiffness: 1000.0
+        spring_reference: 0.0
+
+      hip_roll_joint:
+        friction: 5.0
+        damping: 10.0
+        spring_stiffness: 1000.0
+        spring_reference: 0.0
+
+      hip_pitch_joint:
+        friction: 8.0
+        damping: 15.0
+        spring_stiffness: 1200.0
+        spring_reference: 0.0
+
+      # Knee joints
+      knee_joint:
+        friction: 6.0
+        damping: 12.0
+        spring_stiffness: 1500.0
+        spring_reference: 0.0
+
+      # Ankle joints
+      ankle_pitch_joint:
+        friction: 3.0
+        damping: 8.0
+        spring_stiffness: 800.0
+        spring_reference: 0.0
+
+      ankle_roll_joint:
+        friction: 2.0
+        damping: 5.0
+        spring_stiffness: 600.0
+        spring_reference: 0.0
+
+      # Shoulder joints
+      shoulder_pitch_joint:
+        friction: 4.0
+        damping: 8.0
+        spring_stiffness: 900.0
+        spring_reference: 0.0
+
+      shoulder_roll_joint:
+        friction: 3.0
+        damping: 6.0
+        spring_stiffness: 700.0
+        spring_reference: 0.0
+
+      shoulder_yaw_joint:
+        friction: 2.5
+        damping: 5.0
+        spring_stiffness: 600.0
+        spring_reference: 0.0
+
+      # Elbow joints
+      elbow_joint:
+        friction: 2.0
+        damping: 4.0
+        spring_stiffness: 500.0
+        spring_reference: 0.0
+
+      # Wrist joints
+      wrist_joint:
+        friction: 1.0
+        damping: 2.0
+        spring_stiffness: 300.0
+        spring_reference: 0.0
+
+## Contact Parameters
+contact_physics:
+  ros__parameters:
+    # Ground contact parameters
+    ground_contact:
+      friction_coefficient_1: 0.8  # Primary friction
+      friction_coefficient_2: 0.8  # Secondary friction
+      restitution_coefficient: 0.1  # Bounciness
+      stiffness: 1000000.0  # Contact stiffness
+      damping: 1000.0  # Contact damping
+      max_vel: 100.0  # Maximum contact correction velocity
+      min_depth: 0.001  # Minimum contact depth
+
+    # Foot contact parameters (critical for balance)
+    foot_contact:
+      friction_coefficient_1: 0.9  # Higher friction for stability
+      friction_coefficient_2: 0.9
+      restitution_coefficient: 0.05  # Very low bounce
+      stiffness: 2000000.0  # Higher stiffness for feet
+      damping: 2000.0
+      max_vel: 100.0
+      min_depth: 0.0005  # Shallower contact for sensitivity
+
+    # Hand contact parameters (for manipulation)
+    hand_contact:
+      friction_coefficient_1: 0.7  # Good grip for manipulation
+      friction_coefficient_2: 0.7
+      restitution_coefficient: 0.02  # Minimal bounce
+      stiffness: 500000.0  # Softer for delicate manipulation
+      damping: 500.0
+      max_vel: 50.0  # Lower for more stable manipulation
+      min_depth: 0.002
+
+## Inertial Parameters (per link)
+link_inertias:
+  ros__parameters:
+    # Torso link (typically heaviest)
+    torso_link:
+      mass_kg: 15.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: 0.1
+      inertia_xx: 0.2
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.25
+      inertia_yz: 0.0
+      inertia_zz: 0.15
+
+    # Head link
+    head_link:
+      mass_kg: 2.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: 0.05
+      inertia_xx: 0.01
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.01
+      inertia_yz: 0.0
+      inertia_zz: 0.01
+
+    # Upper leg links
+    left_upper_leg_link:
+      mass_kg: 3.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.15  # Center of link
+      inertia_xx: 0.05
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.05
+      inertia_yz: 0.0
+      inertia_zz: 0.01
+
+    right_upper_leg_link:
+      mass_kg: 3.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.15
+      inertia_xx: 0.05
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.05
+      inertia_yz: 0.0
+      inertia_zz: 0.01
+
+    # Lower leg links
+    left_lower_leg_link:
+      mass_kg: 2.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.15
+      inertia_xx: 0.03
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.03
+      inertia_yz: 0.0
+      inertia_zz: 0.008
+
+    right_lower_leg_link:
+      mass_kg: 2.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.15
+      inertia_xx: 0.03
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.03
+      inertia_yz: 0.0
+      inertia_zz: 0.008
+
+    # Foot links
+    left_foot_link:
+      mass_kg: 1.0
+      com_offset_x: 0.05  # Center towards toe
+      com_offset_y: 0.0
+      com_offset_z: -0.02  # Thin sole
+      inertia_xx: 0.01
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.01
+      inertia_yz: 0.0
+      inertia_zz: 0.005
+
+    right_foot_link:
+      mass_kg: 1.0
+      com_offset_x: 0.05
+      com_offset_y: 0.0
+      com_offset_z: -0.02
+      inertia_xx: 0.01
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.01
+      inertia_yz: 0.0
+      inertia_zz: 0.005
+
+    # Upper arm links
+    left_upper_arm_link:
+      mass_kg: 1.5
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.1
+      inertia_xx: 0.02
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.02
+      inertia_yz: 0.0
+      inertia_zz: 0.005
+
+    right_upper_arm_link:
+      mass_kg: 1.5
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.1
+      inertia_xx: 0.02
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.02
+      inertia_yz: 0.0
+      inertia_zz: 0.005
+
+    # Lower arm links
+    left_lower_arm_link:
+      mass_kg: 1.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.1
+      inertia_xx: 0.01
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.01
+      inertia_yz: 0.0
+      inertia_zz: 0.003
+
+    right_lower_arm_link:
+      mass_kg: 1.0
+      com_offset_x: 0.0
+      com_offset_y: 0.0
+      com_offset_z: -0.1
+      inertia_xx: 0.01
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.01
+      inertia_yz: 0.0
+      inertia_zz: 0.003
+
+    # Hand/End effector links
+    left_hand_link:
+      mass_kg: 0.5
+      com_offset_x: 0.02
+      com_offset_y: 0.0
+      com_offset_z: 0.0
+      inertia_xx: 0.001
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.001
+      inertia_yz: 0.0
+      inertia_zz: 0.001
+
+    right_hand_link:
+      mass_kg: 0.5
+      com_offset_x: 0.02
+      com_offset_y: 0.0
+      com_offset_z: 0.0
+      inertia_xx: 0.001
+      inertia_xy: 0.0
+      inertia_xz: 0.0
+      inertia_yy: 0.001
+      inertia_yz: 0.0
+      inertia_zz: 0.001
+
+## Balance and Locomotion Parameters
+balance_locomotion_physics:
+  ros__parameters:
+    # ZMP (Zero Moment Point) parameters
+    zmp_control_gain: 50.0
+    zmp_tracking_threshold: 0.02  # 2cm tolerance
+    zmp_prediction_horizon: 2.0  # seconds
+
+    # Capture point parameters
+    capture_point_gain: 30.0
+    capture_point_threshold: 0.05  # 5cm tolerance
+
+    # Walking parameters
+    walking_com_height: 0.8  # Desired CoM height during walking
+    walking_foot_separation: 0.2  # Distance between feet
+    walking_step_length: 0.3  # Forward step length
+    walking_step_height: 0.1  # Step clearance height
+    walking_double_support_ratio: 0.1  # 10% double support phase
+
+    # Stability margins
+    stability_margin_ankle: 0.03  # 3cm margin at ankles
+    stability_margin_foot: 0.05  # 5cm margin within foot
+
+## Simulation Tuning Parameters
+simulation_tuning:
+  ros__parameters:
+    # Performance vs. accuracy trade-offs
+    physics_accuracy_mode: "balanced"  # options: fast, balanced, accurate
+    contact_approximation: "mixed"  # options: world, discrete
+
+    # Real-time performance parameters
+    max_real_time_factor: 1.0
+    min_real_time_factor: 0.8
+    step_adaptation_enabled: false
+
+    # Error reduction parameters
+    erp_global: 0.2  # Error reduction parameter
+    cfm_global: 1e-6  # Constraint force mixing
+
+## Safety Parameters
+safety_physics:
+  ros__parameters:
+    # Maximum forces/torques to prevent damage
+    max_joint_torque_Nm: 200.0
+    max_contact_force_N: 1000.0
+    max_angular_velocity_rad_s: 10.0
+    max_linear_velocity_m_s: 5.0
+
+    # Fall detection parameters
+    fall_detection_com_threshold: 0.3  # CoM height drop threshold
+    fall_detection_angle_threshold: 1.0  # Joint angle threshold (rad)
+    fall_detection_time_window: 0.5  # Time window for detection (s)
+
+    # Collision detection
+    collision_detection_enabled: true
+    collision_detection_threshold: 0.001  # Minimum contact distance

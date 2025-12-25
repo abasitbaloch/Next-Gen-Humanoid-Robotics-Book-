@@ -1,0 +1,27 @@
+{
+  "id": "module-1-ros2/physical-vs-digital-ai",
+  "title": "Physical AI vs. Digital AI: A Comprehensive Comparison",
+  "description": "Learning Objectives",
+  "source": "@site/docs/docs/module-1-ros2/physical-vs-digital-ai.md",
+  "sourceDirName": "module-1-ros2",
+  "slug": "/module-1-ros2/physical-vs-digital-ai",
+  "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/physical-vs-digital-ai",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-organization/next-gen-humanoid-robotics-book/tree/main/docs/docs/module-1-ros2/physical-vs-digital-ai.md",
+  "tags": [],
+  "version": "current",
+  "sidebarPosition": 5,
+  "frontMatter": {
+    "sidebar_position": 5
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Humanoid Robot Architectures and Design Principles",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/humanoid-architectures"
+  },
+  "next": {
+    "title": "Robot Learning and Adaptation Concepts",
+    "permalink": "/next-gen-humanoid-robotics-book/docs/module-1-ros2/robot-learning"
+  }
+}

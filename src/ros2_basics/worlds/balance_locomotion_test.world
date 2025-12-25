@@ -1,0 +1,709 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="balance_locomotion_test_world">
+
+    <!-- Physics Configuration -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>20</iters>
+          <sor>1.3</sor>
+        </solver>
+        <constraints>
+          <cfm>0.000001</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100.0</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+    </physics>
+
+    <!-- Environment -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- Terrain variations for balance testing -->
+
+    <!-- Flat ground area -->
+    <model name="flat_ground" static="true">
+      <pose>0 0 0 0 0 0</pose>
+      <link name="ground_link">
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/FlatBlack</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Sloped surfaces -->
+    <model name="slope_5deg" static="true">
+      <pose>-2 0 0 -0.087 0 0</pose> <!-- 5 degrees in radians -->
+      <link name="slope_link">
+        <collision name="collision">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="slope_10deg" static="true">
+      <pose>-2 1 0 -0.175 0 0</pose> <!-- 10 degrees in radians -->
+      <link name="slope_link">
+        <collision name="collision">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="slope_15deg" static="true">
+      <pose>-2 -1 0 -0.262 0 0</pose> <!-- 15 degrees in radians -->
+      <link name="slope_link">
+        <collision name="collision">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="2 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Stepped terrain -->
+    <model name="stepped_terrain" static="true">
+      <link name="step_1">
+        <pose>0 2 0.05 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.5 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.5 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_2">
+        <pose>0.75 2 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.5 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.5 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_3">
+        <pose>1.5 2 0.25 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.5 1 0.1"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.5 1 0.1"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Uneven terrain -->
+    <model name="uneven_terrain" static="true">
+      <pose>2 0 0 0 0 0</pose>
+
+      <link name="bump_1">
+        <pose>-0.5 0.3 0.02 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.04"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>0.04"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Brown</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="bump_2">
+        <pose>0.2 -0.2 0.03 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.08</radius>
+              <length>0.06"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.08</radius>
+              <length>0.06"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Brown</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="bump_3">
+        <pose>0.5 0.5 0.015 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.12</radius>
+              <length>0.03"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.12</radius>
+              <length>0.03"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Brown</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Narrow walkway -->
+    <model name="narrow_walkway" static="true">
+      <pose>0 -2 0.02 0 0 0</pose>
+      <link name="walkway_link">
+        <collision name="collision">
+          <geometry>
+            <box size="4 0.2 0.04"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="4 0.2 0.04"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Balance beam -->
+    <model name="balance_beam" static="true">
+      <pose>2 -2 0.1 0 0 0</pose>
+      <link name="beam_link">
+        <collision name="collision">
+          <geometry>
+            <box size="2 0.05 0.02"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="2 0.05 0.02"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Obstacles for navigation testing -->
+    <model name="obstacle_course" static="true">
+      <!-- Pillars -->
+      <link name="pillar_1">
+        <pose>-3 2 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>1"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>1"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="pillar_2">
+        <pose>-2.7 2.5 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>1"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>1"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="pillar_3">
+        <pose>-2.4 1.8 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>1"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.1</radius>
+              <length>1"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Cones -->
+      <link name="cone_1">
+        <pose>3 1 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cone>
+              <radius>0.15</radius>
+              <length>0.3"/>
+            </cone>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cone>
+              <radius>0.15</radius>
+              <length>0.3"/>
+            </cone>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="cone_2">
+        <pose>3.5 1.5 0.15 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <cone>
+              <radius>0.15</radius>
+              <length>0.3"/>
+            </cone>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cone>
+              <radius>0.15</radius>
+              <length>0.3"/>
+            </cone>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Stairs for locomotion testing -->
+    <model name="stairs" static="true">
+      <pose>0 3 0 0 0 0</pose>
+
+      <link name="step_1">
+        <pose>0 0 0.1 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="1.5 0.8 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="1.5 0.8 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_2">
+        <pose>0 0 0.3 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="1.2 0.8 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="1.2 0.8 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_3">
+        <pose>0 0 0.5 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.9 0.8 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.9 0.8 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <link name="step_4">
+        <pose>0 0 0.7 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box size="0.6 0.8 0.2"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.6 0.8 0.2"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Ramps for incline testing -->
+    <model name="ramp_5deg" static="true">
+      <pose>-3 -2 0 0 0 -0.087</pose> <!-- 5 degrees -->
+      <link name="ramp_link">
+        <collision name="collision">
+          <geometry>
+            <box size="1.5 0.8 0.01"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="1.5 0.8 0.01"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="ramp_10deg" static="true">
+      <pose>-3 -3 0 0 0 -0.175</pose> <!-- 10 degrees -->
+      <link name="ramp_link">
+        <collision name="collision">
+          <geometry>
+            <box size="1.5 0.8 0.01"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="1.5 0.8 0.01"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Targets for navigation -->
+    <model name="start_position" static="true">
+      <pose>-4 -4 0.01 0 0 0</pose>
+      <link name="target_link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.2</radius>
+              <length>0.02"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.2</radius>
+              <length>0.02"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="goal_position" static="true">
+      <pose>4 4 0.01 0 0 0</pose>
+      <link name="target_link">
+        <collision name="collision">
+          <geometry>
+            <cylinder>
+              <radius>0.2</radius>
+              <length>0.02"/>
+            </cylinder>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <cylinder>
+              <radius>0.2</radius>
+              <length>0.02"/>
+            </cylinder>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Platform for balance testing -->
+    <model name="balance_platform" static="false">
+      <pose>2 3 0.2 0 0 0</pose>
+      <link name="platform_link">
+        <inertial>
+          <mass>5.0</mass>
+          <inertia ixx="0.5" ixy="0.0" ixz="0.0" iyy="0.5" iyz="0.0" izz="0.5"/>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box size="0.8 0.8 0.05"/>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box size="0.8 0.8 0.05"/>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+
+      <!-- Joint to allow slight movement for balance challenge -->
+      <joint name="platform_joint" type="revolute">
+        <parent>world</parent>
+        <child>platform_link</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-0.1</lower>
+            <upper>0.1</upper>
+          </limit>
+        </axis>
+      </joint>
+    </model>
+
+    <!-- Lighting -->
+    <light name="main_light" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.3 -0.3 -1</direction>
+    </light>
+
+    <!-- Ambient light -->
+    <light name="ambient_light" type="directional">
+      <pose>0 0 10 0 0 3.14</pose>
+      <diffuse>0.3 0.3 0.3 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <direction>0.3 0.3 -1</direction>
+    </light>
+
+  </world>
+</sdf>

@@ -1,0 +1,29 @@
+graph TD
+    A[Camera/LiDAR Input] --> B[Sensor Data Preprocessing]
+    B --> C[Object Detection]
+    C --> D[Semantic Segmentation]
+    D --> E[Depth Estimation]
+    E --> F[3D Reconstruction]
+    F --> G[Scene Understanding]
+    G --> H[Perception Output]
+
+    I[IMU/Sensors] --> J[Sensor Fusion]
+    J --> K[State Estimation]
+    K --> L[Localization]
+
+    M[Task Planner] --> N[Perception Task Manager]
+    N --> O[Active Perception]
+    O --> B
+    O --> J
+
+    P[World Model] --> Q[Scene Context]
+    Q --> G
+
+    H --> R[Navigation Input]
+    K --> R
+    L --> R
+
+    style A fill:#e1f5fe
+    style H fill:#e8f5e8
+    style R fill:#fff3e0
+    style M fill:#f3e5f5
