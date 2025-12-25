@@ -54,23 +54,36 @@ const config = {
           label: 'Book',
         },
         
-        // --- NEW: TRANSLATOR BUTTON (Fixed for Twin Iframes) ---
+        // --- NEW: WORLD BUTTON (Neon Green & Toggles Theme) ---
         {
           type: 'html',
           position: 'right', 
-          // This button specifically targets the iframe with "mode=translator" in the URL
           value: `
             <button 
-              onclick="const frame = document.querySelector('iframe[src*=\\'mode=translator\\']'); if(frame) frame.contentWindow.postMessage('open-translator', '*');" 
-              style="background:none; border:none; cursor:pointer; font-size:1.5rem; display:flex; align-items:center; padding:0 10px; transition: transform 0.2s;" 
-              onmouseover="this.style.transform='scale(1.1)'" 
-              onmouseout="this.style.transform='scale(1)'"
-              title="Open Translator"
+              id="world-btn"
+              onclick="const frames = document.querySelectorAll('iframe'); frames.forEach(f => f.contentWindow.postMessage('toggle-world-view', '*'));" 
+              style="
+                background: none; 
+                border: none; 
+                cursor: pointer; 
+                color: #39ff14;  /* Neon Green */
+                font-size: 1.5rem; 
+                display: flex; 
+                align-items: center; 
+                padding: 0 10px; 
+                transition: all 0.3s ease;
+                text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+              " 
+              onmouseover="this.style.transform='scale(1.2)'; this.style.textShadow='0 0 15px #39ff14';" 
+              onmouseout="this.style.transform='scale(1)'; this.style.textShadow='0 0 5px rgba(57, 255, 20, 0.5)';"
+              title="Open World Mode"
             >
-              🌐
+              🌍
             </button>
           `,
         },
+        // ------------------------------------------------------
+
         {
           href: 'https://github.com/abasitbaloch/Next-Gen-Humanoid-Robotics-Book',
           label: 'GitHub',

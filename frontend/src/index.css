@@ -41,3 +41,50 @@ body, html, #root {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* =========================================
+   NEW ADDITIONS: WORLD BUTTON & NEON THEME
+   ========================================= */
+
+/* 1. The World Button (Green Style) */
+#world-btn {
+    color: #39ff14 !important; /* Neon Green Text/Icon */
+    border-color: #39ff14 !important; 
+    transition: all 0.3s ease;
+}
+
+#world-btn:hover {
+    background-color: rgba(57, 255, 20, 0.1); /* Subtle green tint on hover */
+    box-shadow: 0 0 15px #39ff14; /* Glow effect */
+    text-shadow: 0 0 5px #39ff14;
+    transform: scale(1.05);
+}
+
+/* 2. Neon Green Theme Class 
+   (This class is added via JavaScript when you click the button) */
+.neon-green-theme {
+    /* Override the main container border/shadow to be Green */
+    border: 2px solid #39ff14 !important;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.5) !important;
+}
+
+/* Override Buttons & Headers inside the Chat when theme is active */
+.neon-green-theme button,
+.neon-green-theme .chat-header {
+    background-color: #39ff14 !important; 
+    color: black !important; /* Black text on Green background */
+    border: none !important;
+}
+
+/* Make the translated text Green too */
+.neon-green-theme .translated-text,
+.neon-green-theme p {
+    color: #39ff14 !important;
+}
+
+/* Optional: Change the input border to green too */
+.neon-green-theme input, 
+.neon-green-theme textarea {
+    border-color: #39ff14 !important;
+    color: #39ff14 !important;
+}
