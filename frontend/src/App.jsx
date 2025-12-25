@@ -1,28 +1,21 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { Send, Bot, Loader2, BookOpen, Volume2, StopCircle, Trash2, X, Sparkles, Languages } from 'lucide-react';
+import { Send, Bot, Loader2, Volume2, StopCircle, Trash2, X, Sparkles, Languages } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import TranslatorWidget from './components/TranslatorWidget';
 
 export default function App() {
-  // 1. CHECK THE URL MODE
   const urlParams = new URLSearchParams(window.location.search);
-  const appMode = urlParams.get('mode') || 'chat'; // Default to chat
+  const appMode = urlParams.get('mode') || 'chat';
 
   const [isOpen, setIsOpen] = useState(false);
-  
-  // NEW: State for Neon Green Theme
-  const [isNeon, setIsNeon] = useState(false); 
-
-  // Chatbot State
+  const [isNeon, setIsNeon] = useState(false); // Controls the Green Theme
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState('');
   
-  // NEW: Language State (needed for TTS to know which accent to use)
-  const [ttsLang, setTtsLang] = useState('en'); 
-
+  // Chat History
   const [messages, setMessages] = useState(() => {
     if (appMode === 'chat') {
       const saved = localStorage.getItem('robotics_chat_history');
@@ -32,67 +25,68 @@ export default function App() {
   });
   const messagesEndRef = useRef(null);
 
-  // --- 2. LISTEN FOR PARENT SIGNALS (Navbar Buttons) ---
+  // --- LISTEN FOR NAVBAR BUTTON ---
   useEffect(() => {
     const handleMessage = (event) => {
-      // A. Standard Translator Open
-      if (appMode === 'translator' && event.data === 'open-translator') {
-        setIsOpen(true);
-        setIsNeon(false); // Default theme
-      }
-      
-      // B. NEW: World Button (Green Theme + Toggle)
+      // If we receive the 'toggle-world-view' signal from the Navbar
       if (event.data === 'toggle-world-view') {
         setIsOpen(prev => !prev); // Toggle Open/Close
-        setIsNeon(true);          // Force Neon Theme
+        setIsNeon(true);          // Switch to Dark Green Theme
       }
     };
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [appMode]);
+  }, []);
 
-  // --- 3. COMMUNICATE STATE TO PARENT ---
+  // Communicate with Parent (Docusaurus)
   useEffect(() => {
-    const signal = appMode === 'chat' 
-      ? (isOpen ? 'chat-opened' : 'chat-closed')
-      : (isOpen ? 'translator-opened' : 'translator-closed');
-      
+    const signal = isOpen ? 'chat-opened' : 'chat-closed';
     window.parent.postMessage(signal, '*');
-  }, [isOpen, appMode]);
+  }, [isOpen]);
 
-  // Chatbot Helpers
-  useEffect(() => { if (appMode === 'chat' && isOpen) scrollToBottom(); }, [messages, isOpen, appMode]);
+  useEffect(() => { if (appMode === 'chat' && isOpen) scrollToBottom(); }, [messages, isOpen]);
   const scrollToBottom = () => setTimeout(() => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
 
-  // --- 4. FIXED SPEAK FUNCTION (Urdu & Roman) ---
+  // --- FIXED SPEECH FUNCTION (Urdu & Hindi Fallback) ---
   const speak = (text) => { 
     window.speechSynthesis.cancel(); 
     const u = new SpeechSynthesisUtterance(text);
     
-    // Logic: Detect language or use manual toggle
-    // For now, we assume simple detection or default. 
-    // Ideally, you pass the language code to this function.
-    
-    // Quick Check: If text contains Urdu chars, use Urdu voice
-    const hasUrduChars = /[\u0600-\u06FF]/.test(text);
+    // 1. Detect if text is Urdu/Arabic Script
+    const isUrduScript = /[\u0600-\u06FF]/.test(text);
 
-    if (hasUrduChars) {
-        u.lang = 'ur-PK'; // Standard Urdu
+    if (isUrduScript) {
+        // Try to find an Urdu voice first
+        const voices = window.speechSynthesis.getVoices();
+        const urduVoice = voices.find(v => v.lang.includes('ur'));
+        const hindiVoice = voices.find(v => v.lang.includes('hi')); // Fallback
+
+        if (urduVoice) {
+            u.voice = urduVoice;
+            u.lang = 'ur-PK';
+        } else if (hindiVoice) {
+            // TRICK: If no Urdu voice, use Hindi (sounds the same for speaking)
+            u.voice = hindiVoice; 
+            u.lang = 'hi-IN';
+        }
+        // If neither, it will use default (which might be Arabic or silent, but we tried)
     } else {
-        // If it's English text, it might be "Roman Urdu" or just English
-        // We use English voice for both
+        // English / Roman Urdu
         u.lang = 'en-US'; 
+        u.rate = 0.9;
     }
 
     u.onstart = () => setIsSpeaking(true); 
     u.onend = () => setIsSpeaking(false); 
+    u.onerror = (e) => console.error("Speech Error:", e);
+    
     window.speechSynthesis.speak(u); 
   };
 
   const stopSpeaking = () => { window.speechSynthesis.cancel(); setIsSpeaking(false); };
   
   const clearHistory = () => { 
-    if(window.confirm("Clear?")) { 
+    if(window.confirm("Clear chat?")) { 
       setMessages([{ role: 'ai', text: "Reset.", sources: [] }]); 
       stopSpeaking(); 
     }
@@ -106,72 +100,82 @@ export default function App() {
     setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
     setIsLoading(true);
     try {
-      // NOTE: You might need to update your backend to return "roman_urdu" if requested
       const response = await axios.post('https://janabkakarot-robotics-brain.hf.space/chat', { message: userMessage, session_id: "session-1" });
       setMessages(prev => [...prev, { role: 'ai', text: response.data.response, sources: response.data.sources || [] }]);
     } catch (error) { setMessages(prev => [...prev, { role: 'ai', text: "⚠️ Connection error.", sources: [] }]); } 
     finally { setIsLoading(false); }
   };
 
-  // --- DYNAMIC THEME CLASSES ---
-  // If isNeon is true, use Green (#39ff14). If false, use Blue/Indigo.
+  // --- THEME SETTINGS (Dark Green Logic) ---
   const theme = {
-    iconBg: isNeon ? 'bg-[#39ff14]' : 'bg-gradient-to-tr from-blue-600 to-indigo-600',
-    iconColor: isNeon ? 'text-black' : 'text-white',
-    userBubble: isNeon ? 'bg-[#39ff14] text-black border-[#39ff14]' : 'bg-blue-600 border-blue-500 text-white',
-    sendBtn: isNeon ? 'bg-[#39ff14] text-black' : 'bg-blue-600 text-white',
-    border: isNeon ? 'border-[#39ff14]' : 'border-white/10',
-    shadow: isNeon ? 'shadow-[0_0_20px_rgba(57,255,20,0.5)]' : 'shadow-2xl',
-    subText: isNeon ? 'text-[#39ff14]' : 'text-green-400'
+    // Outer Container
+    containerBg: isNeon ? 'bg-black border-2 border-[#39ff14] shadow-[0_0_20px_rgba(57,255,20,0.3)]' : 'bg-gray-900/95 border border-white/10 shadow-2xl',
+    
+    // Header
+    headerBg: isNeon ? 'bg-[#051a05] border-b border-[#39ff14]' : 'bg-white/5 border-b border-white/5',
+    headerText: isNeon ? 'text-[#39ff14]' : 'text-white',
+    onlineStatus: isNeon ? 'text-[#39ff14]' : 'text-green-400',
+    
+    // Icons
+    iconBox: isNeon ? 'bg-black border border-[#39ff14] shadow-[0_0_10px_#39ff14]' : 'bg-gradient-to-tr from-blue-600 to-indigo-600 shadow-lg',
+    iconColor: isNeon ? 'text-[#39ff14]' : 'text-white',
+
+    // Bubbles
+    userBubble: isNeon ? 'bg-[#0a2e0a] border border-[#39ff14] text-[#39ff14]' : 'bg-blue-600 border-blue-500 text-white',
+    aiBubble: isNeon ? 'bg-black border border-[#39ff14]/50 text-[#39ff14]' : 'bg-white/5 border-white/10 text-gray-100',
+    
+    // Input Area
+    inputBg: isNeon ? 'bg-black border border-[#39ff14] text-[#39ff14]' : 'bg-white/5 border border-white/10 text-white',
+    sendBtn: isNeon ? 'bg-[#39ff14] text-black hover:bg-[#32cc12]' : 'bg-blue-600 text-white',
   };
 
   // ==========================================
-  // RENDER: TRANSLATOR MODE (Top Right)
+  // RENDER: TRANSLATOR MODE
   // ==========================================
   if (appMode === 'translator') {
     if (!isOpen) return null;
     return (
-      <div className={`bg-gray-900/95 backdrop-blur-xl rounded-2xl p-1 w-full h-full overflow-hidden animate-in fade-in slide-in-from-top-5 border ${theme.border} ${theme.shadow}`}>
-         <div className="flex justify-between items-center px-4 py-3 border-b border-white/5 bg-white/5 rounded-t-xl mb-1">
-             <h3 className={`font-bold flex items-center gap-2 text-sm ${isNeon ? 'text-[#39ff14]' : 'text-gray-200'}`}>
-                <Languages size={16} className={isNeon ? 'text-[#39ff14]' : 'text-blue-400'}/> Translator
+      <div className={`backdrop-blur-xl rounded-2xl p-1 w-full h-full overflow-hidden animate-in fade-in slide-in-from-top-5 ${theme.containerBg}`}>
+         <div className={`flex justify-between items-center px-4 py-3 rounded-t-xl mb-1 ${theme.headerBg}`}>
+             <h3 className={`font-bold flex items-center gap-2 text-sm ${theme.headerText}`}>
+                <Languages size={16} /> Translator
              </h3>
-             <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white"><X size={18}/></button>
+             <button onClick={() => setIsOpen(false)} className={`hover:text-white ${isNeon ? 'text-[#39ff14]' : 'text-gray-400'}`}><X size={18}/></button>
          </div>
+         {/* Pass the theme prop to widget if needed, or just let it inherit styles */}
          <div className="p-3"><TranslatorWidget isNeon={isNeon} /></div>
       </div>
     );
   }
 
   // ==========================================
-  // RENDER: CHAT MODE (Bottom Right)
+  // RENDER: CHAT MODE
   // ==========================================
   return (
     <>
-      {/* Chat Window */}
       <div className={`
         fixed bottom-20 right-4 z-50 
         w-[90vw] md:w-[380px] h-[600px] max-h-[75vh] flex flex-col
-        bg-gray-900/95 backdrop-blur-xl rounded-2xl
+        backdrop-blur-xl rounded-2xl
         transition-all duration-300 ease-out origin-bottom-right
-        ${theme.border} ${theme.shadow}
+        ${theme.containerBg}
         ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 pointer-events-none translate-y-10'}
       `}>
           {/* Header */}
-          <div className="flex items-center justify-between px-5 py-4 bg-white/5 border-b border-white/5 rounded-t-2xl">
+          <div className={`flex items-center justify-between px-5 py-4 rounded-t-2xl ${theme.headerBg}`}>
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-xl shadow-lg ${theme.iconBg}`}>
+              <div className={`p-2 rounded-xl ${theme.iconBox}`}>
                   <Bot size={20} className={theme.iconColor} />
               </div>
               <div>
-                  <h1 className="font-semibold text-sm text-white">Next-Gen AI</h1>
-                  <p className={`text-[10px] ${theme.subText}`}>Online</p>
+                  <h1 className={`font-semibold text-sm ${theme.headerText}`}>Next-Gen AI</h1>
+                  <p className={`text-[10px] ${theme.onlineStatus}`}>Online</p>
               </div>
             </div>
             <div className="flex gap-1">
                 {isSpeaking && <button onClick={stopSpeaking} className="p-2 text-rose-400 hover:bg-white/10 rounded"><StopCircle size={16}/></button>}
-                <button onClick={clearHistory} className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded"><Trash2 size={16}/></button>
-                <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded"><X size={18}/></button>
+                <button onClick={clearHistory} className={`p-2 rounded hover:bg-white/10 ${isNeon ? 'text-[#39ff14]' : 'text-gray-400'}`}><Trash2 size={16}/></button>
+                <button onClick={() => setIsOpen(!isOpen)} className={`p-2 rounded hover:bg-white/10 ${isNeon ? 'text-[#39ff14]' : 'text-gray-400'}`}><X size={18}/></button>
             </div>
           </div>
 
@@ -179,30 +183,33 @@ export default function App() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm relative group border ${msg.role === 'user' ? theme.userBubble : 'bg-white/5 border-white/10 text-gray-100'}`}>
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm relative group ${msg.role === 'user' ? theme.userBubble : theme.aiBubble}`}>
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
-                    {msg.role === 'ai' && <button onClick={() => speak(msg.text)} className={`absolute -right-6 top-1 opacity-0 group-hover:opacity-100 ${isNeon ? 'text-[#39ff14]' : 'text-gray-500 hover:text-blue-400'}`}><Volume2 size={14}/></button>}
+                    {msg.role === 'ai' && (
+                        <button onClick={() => speak(msg.text)} className={`absolute -right-6 top-1 opacity-0 group-hover:opacity-100 transition ${isNeon ? 'text-[#39ff14]' : 'text-gray-500'}`}>
+                            <Volume2 size={14}/>
+                        </button>
+                    )}
                 </div>
               </div>
             ))}
-            {isLoading && <div className="text-gray-400 text-xs ml-4 flex gap-2"><Loader2 size={12} className={`animate-spin ${isNeon ? 'text-[#39ff14]' : ''}`}/> Thinking...</div>}
+            {isLoading && <div className={`text-xs ml-4 flex gap-2 ${isNeon ? 'text-[#39ff14]' : 'text-gray-400'}`}><Loader2 size={12} className="animate-spin"/> Thinking...</div>}
             <div ref={messagesEndRef} />
           </div>
 
           {/* Input Area */}
-          <form onSubmit={sendMessage} className="p-4 border-t border-white/5">
-            <div className={`flex items-center gap-2 bg-white/5 rounded-xl px-2 py-1 border ${isNeon ? 'border-[#39ff14]' : 'border-white/10'}`}>
-              <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask..." className="flex-1 bg-transparent text-white text-sm px-2 py-2 focus:outline-none" disabled={isLoading}/>
+          <form onSubmit={sendMessage} className={`p-4 border-t ${isNeon ? 'border-[#39ff14]/30' : 'border-white/5'}`}>
+            <div className={`flex items-center gap-2 rounded-xl px-2 py-1 ${theme.inputBg}`}>
+              <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask..." className={`flex-1 bg-transparent text-sm px-2 py-2 focus:outline-none ${isNeon ? 'text-[#39ff14] placeholder-[#39ff14]/50' : 'text-white'}`} disabled={isLoading}/>
               <button type="submit" disabled={isLoading || !input.trim()} className={`p-2 rounded-lg ${theme.sendBtn}`}><Send size={16}/></button>
             </div>
           </form>
       </div>
 
-      {/* Standard Chat Toggle Button (Bottom Right) */}
+      {/* Floating Toggle Button (Bottom Right) */}
       <div className="fixed bottom-3 right-3 z-50 group">
-        <button onClick={() => { setIsOpen(!isOpen); setIsNeon(false); }} className={`relative flex items-center justify-center w-14 h-14 rounded-full shadow-xl border border-white/20 ring-1 ring-black/50 transition-all hover:scale-105 active:scale-95 backdrop-blur-sm ${isOpen ? 'bg-neutral-800 rotate-90' : 'bg-gradient-to-br from-blue-600 to-indigo-700'}`}>
-          <span className={`absolute inset-0 rounded-full bg-blue-400/20 blur-sm ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-          {isOpen ? <X size={24} className="text-gray-400" /> : <Sparkles size={22} className="text-white" />}
+        <button onClick={() => { setIsOpen(!isOpen); setIsNeon(false); }} className={`relative flex items-center justify-center w-14 h-14 rounded-full shadow-xl transition-all hover:scale-105 active:scale-95 backdrop-blur-sm ${isOpen ? 'bg-neutral-800 rotate-90' : 'bg-gradient-to-br from-blue-600 to-indigo-700'} ${isNeon ? 'border-2 border-[#39ff14] shadow-[0_0_15px_#39ff14]' : 'border border-white/20'}`}>
+          {isOpen ? <X size={24} className={isNeon ? "text-[#39ff14]" : "text-gray-400"} /> : <Sparkles size={22} className="text-white" />}
         </button>
       </div>
     </>
