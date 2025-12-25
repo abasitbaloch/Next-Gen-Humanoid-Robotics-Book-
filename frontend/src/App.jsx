@@ -13,7 +13,7 @@ export default function App() {
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
 
-  // --- MEMORY & SPEECH LOGIC (Kept same) ---
+  // --- MEMORY & SPEECH LOGIC ---
   const [messages, setMessages] = useState(() => {
     const saved = localStorage.getItem('robotics_chat_history');
     return saved ? JSON.parse(saved) : [{ role: 'ai', text: "Hello! I am your Humanoid Robotics expert.", sources: [] }];
@@ -50,21 +50,16 @@ export default function App() {
     }
   };
 
-  // --- 4. SMARTER TOGGLE LOGIC (FIXED) ---
+  // --- TOGGLE LOGIC ---
   const toggleWidget = (widgetName) => {
     const isClosing = activeWidget === widgetName;
     const isOpening = activeWidget === null;
 
     if (isClosing) {
-      // If clicking the same button, close everything
       setActiveWidget(null);
       window.parent.postMessage('toggle-widget', '*'); 
     } else {
-      // If clicking a new button, switch to it
       setActiveWidget(widgetName);
-      
-      // Only send the "Open" signal if the window was previously fully closed.
-      // If we are just switching from Chat <-> Translator, we do NOT send the signal.
       if (isOpening) {
         window.parent.postMessage('toggle-widget', '*');
       }
@@ -93,37 +88,10 @@ export default function App() {
 
   return (
     <>
-      {/* -------------------------------------------
-          1. MAIN PAGE BACKGROUND
-          This is the content BEHIND the widgets.
-         ------------------------------------------- */}
-      <div className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center p-4">
-        <div className="text-center max-w-2xl">
-          <h1 className="text-5xl font-bold mb-6 text-blue-500 tracking-tight">
-            Capstone Dashboard
-          </h1>
-          <p className="text-xl text-gray-400 mb-8">
-            Welcome to the Robotics Integration Hub.
-          </p>
-          
-          <div className="p-6 bg-gray-800 rounded-xl border border-gray-700 shadow-xl">
-             <h2 className="text-lg font-semibold text-white mb-2">System Status</h2>
-             <div className="flex items-center justify-center gap-4 text-sm text-gray-400">
-                <span className="flex items-center gap-2"><span className="w-2 h-2 bg-green-500 rounded-full"></span> Translator Ready</span>
-                <span className="flex items-center gap-2"><span className="w-2 h-2 bg-green-500 rounded-full"></span> Chatbot Online</span>
-             </div>
-          </div>
-          
-          <p className="mt-12 text-gray-500 text-sm">
-            ↙ Use the Dock in the bottom-right corner to open tools.
-          </p>
-        </div>
-      </div>
+      {/* 1. CLEAN BACKGROUND (No Text) */}
+      <div className="min-h-screen bg-transparent"></div>
 
-      {/* -------------------------------------------
-          2. WIDGET WINDOWS (The Popups)
-          Positioned Fixed, Above the buttons
-         ------------------------------------------- */}
+      {/* 2. WIDGET WINDOWS (Popups) */}
       <div className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-4 pointer-events-none">
         
         {/* A. TRANSLATOR WINDOW */}
@@ -191,12 +159,8 @@ export default function App() {
         </div>
       </div>
 
-      {/* -------------------------------------------
-          3. THE DOCK (Buttons Only)
-          Strictly fixed to bottom-right
-         ------------------------------------------- */}
+      {/* 3. THE DOCK (Buttons Only) */}
       <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-        
         {/* Translator Toggle */}
         <button
           onClick={() => toggleWidget('translator')}
@@ -221,7 +185,6 @@ export default function App() {
           {activeWidget === 'chat' ? <X size={24} /> : <MessageSquare size={24} className="fill-current" />}
         </button>
       </div>
-
     </>
   );
 }
