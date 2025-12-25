@@ -2,23 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: #0f172a;
-  color: #f8fafc;
+/* CRITICAL FIX: 
+   We set background to transparent so the iframe is invisible.
+   Only the Chat Window itself will have a background (Glassmorphism).
+*/
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent !important; /* <--- This makes the blue box disappear */
+  overflow: hidden; /* Prevents scrollbars on the page itself */
   font-family: 'Inter', sans-serif;
 }
 
-/* Custom Scrollbar for a sleek look */
+/* Custom Scrollbar (Kept dark/sleek for the chat window) */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: transparent; 
 }
+
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Utilities for Glassmorphism */
+.glass {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }

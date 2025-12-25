@@ -1,28 +1,30 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { Send, Bot, Loader2, BookOpen, Volume2, StopCircle, Trash2, X, MessageSquare, Languages } from 'lucide-react';
+import { Send, Bot, Loader2, BookOpen, Volume2, StopCircle, Trash2, X, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import TranslatorWidget from './components/TranslatorWidget';
-
 export default function App() {
-  const [activeWidget, setActiveWidget] = useState(null); 
+  const [isOpen, setIsOpen] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef(null);
 
-  // --- MEMORY & SPEECH LOGIC ---
+  // --- MEMORY: Load saved messages ---
   const [messages, setMessages] = useState(() => {
     const saved = localStorage.getItem('robotics_chat_history');
-    return saved ? JSON.parse(saved) : [{ role: 'ai', text: "Hello! I am your Humanoid Robotics expert.", sources: [] }];
+    return saved ? JSON.parse(saved) : [{ 
+      role: 'ai', 
+      text: "Greetings. I am the **Next-Gen Robotics AI**. How can I assist you with the curriculum today?", 
+      sources: [] 
+    }];
   });
 
   useEffect(() => {
     localStorage.setItem('robotics_chat_history', JSON.stringify(messages));
-    if (activeWidget === 'chat') scrollToBottom();
-  }, [messages, activeWidget]);
+    if (isOpen) scrollToBottom();
+  }, [messages, isOpen]);
 
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -30,9 +32,16 @@ export default function App() {
     }, 100);
   };
 
+  // --- VOICE LOGIC ---
   const speak = (text) => {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+    // Try to find a premium sounding voice
+    const preferred = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha"));
+    if (preferred) u.voice = preferred;
+    u.pitch = 0.9; // Slightly deeper, more robotic/professional
+    u.rate = 1.0;
     u.onstart = () => setIsSpeaking(true);
     u.onend = () => setIsSpeaking(false);
     window.speechSynthesis.speak(u);
@@ -44,28 +53,18 @@ export default function App() {
   };
 
   const clearHistory = () => {
-    if (window.confirm("Delete chat history?")) {
-      setMessages([{ role: 'ai', text: "History cleared!", sources: [] }]);
+    if (window.confirm("Clear conversation history?")) {
+      setMessages([{ role: 'ai', text: "Conversation reset.", sources: [] }]);
       stopSpeaking();
     }
   };
 
-  // --- SMART TOGGLE LOGIC ---
-  const toggleWidget = (widgetName) => {
-    const isClosing = activeWidget === widgetName;
-    const isOpening = activeWidget === null;
-
-    if (isClosing) {
-      setActiveWidget(null);
-      // Tell parent to CLOSE the iframe
-      window.parent.postMessage('toggle-widget', '*'); 
-    } else {
-      setActiveWidget(widgetName);
-      // Only tell parent to OPEN if it wasn't open before.
-      if (isOpening) {
-        window.parent.postMessage('toggle-widget', '*');
-      }
-    }
+  // --- TOGGLE LOGIC (Simple Open/Close) ---
+  const toggleChat = () => {
+    const newState = !isOpen;
+    setIsOpen(newState);
+    // Send signal to parent to resize the iframe
+    window.parent.postMessage('toggle-widget', '*');
   };
 
   const sendMessage = async (e) => {
@@ -82,7 +81,7 @@ export default function App() {
       });
       setMessages(prev => [...prev, { role: 'ai', text: response.data.response, sources: response.data.sources || [] }]);
     } catch (error) {
-      setMessages(prev => [...prev, { role: 'ai', text: "⚠️ Connection Error.", sources: [] }]);
+      setMessages(prev => [...prev, { role: 'ai', text: "⚠️ I am unable to connect to the neural network.", sources: [] }]);
     } finally {
       setIsLoading(false);
     }
@@ -90,102 +89,158 @@ export default function App() {
 
   return (
     <>
-      {/* 1. CLEAN BACKGROUND (No Text) */}
-      <div className="min-h-screen bg-transparent"></div>
+      {/* No Background Div here! 
+         This ensures the widget looks like it's floating over the book 
+      */}
 
-      {/* 2. WIDGET WINDOWS (Popups) */}
-      <div className="fixed bottom-24 right-6 z-40 flex flex-col items-end gap-4 pointer-events-none">
+      <div className="fixed bottom-0 right-0 p-6 z-50 font-sans antialiased flex flex-col items-end">
         
-        {/* A. TRANSLATOR WINDOW */}
-        {activeWidget === 'translator' && (
-           <div className="pointer-events-auto bg-gray-800 p-1 rounded-2xl border border-gray-700 shadow-2xl w-[350px] animate-in slide-in-from-bottom-10 fade-in duration-200">
-              <div className="flex justify-between items-center p-3 border-b border-gray-700 bg-gray-900/50 rounded-t-xl">
-                 <h3 className="font-bold text-gray-200 flex items-center gap-2 text-sm">
-                   <Languages size={16} className="text-blue-400"/> Quick Translator
-                 </h3>
-                 <button onClick={() => toggleWidget('translator')} className="text-gray-400 hover:text-white">
-                   <X size={18} />
-                 </button>
-              </div>
-              <div className="p-3">
-                <TranslatorWidget /> 
-              </div>
-           </div>
-        )}
-
-        {/* B. CHATBOT WINDOW */}
+        {/* 1. THE CHAT WINDOW */}
         <div className={`
-          pointer-events-auto
-          w-[90vw] md:w-[400px] h-[600px] max-h-[70vh]
-          bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden
-          transition-all duration-300 ease-in-out origin-bottom-right
-          ${activeWidget === 'chat' ? 'scale-100 opacity-100' : 'scale-0 opacity-0 absolute'}
+          mb-4 w-[90vw] md:w-[380px] h-[600px] max-h-[75vh]
+          flex flex-col overflow-hidden
+          rounded-2xl border border-white/10 shadow-2xl shadow-black/50
+          bg-black/80 backdrop-blur-xl 
+          transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] origin-bottom-right
+          ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-90 opacity-0 translate-y-10 pointer-events-none absolute'}
         `}>
-          {/* Chat Header */}
-          <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-700">
+          
+          {/* Header */}
+          <div className="flex items-center justify-between px-5 py-4 bg-white/5 border-b border-white/5 backdrop-blur-sm">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-600 rounded-lg shadow-lg">
-                <Bot size={20} className="text-white" />
+              <div className="relative">
+                <div className="absolute inset-0 bg-blue-500 blur-md opacity-20 rounded-full"></div>
+                <div className="relative p-2 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-xl shadow-lg border border-white/10">
+                  <Bot size={20} className="text-white" />
+                </div>
               </div>
               <div>
-                <h1 className="font-bold text-sm text-blue-100">Robotics AI</h1>
-                <p className="text-[10px] text-gray-400">Online</p>
+                <h1 className="font-semibold text-sm text-white tracking-wide">Next-Gen AI</h1>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                  <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">Online</p>
+                </div>
               </div>
             </div>
+            
+            {/* Header Controls */}
             <div className="flex gap-1">
-               {isSpeaking && <button onClick={stopSpeaking} className="p-2 text-red-400 hover:bg-gray-700 rounded"><StopCircle size={16}/></button>}
-               <button onClick={clearHistory} className="p-2 text-gray-400 hover:text-red-400 hover:bg-gray-700 rounded"><Trash2 size={16}/></button>
-               <button onClick={() => toggleWidget('chat')} className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><X size={18}/></button>
+               {isSpeaking && (
+                <button onClick={stopSpeaking} className="p-2 text-rose-400 hover:bg-white/10 rounded-lg transition-colors">
+                  <StopCircle size={16} />
+                </button>
+              )}
+              <button onClick={clearHistory} className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <Trash2 size={16} />
+              </button>
+              <button onClick={toggleChat} className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+                <X size={18} />
+              </button>
             </div>
           </div>
 
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-800 custom-scrollbar">
+          {/* Messages Area */}
+          <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar scroll-smooth">
             {messages.map((msg, index) => (
               <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] rounded-2xl p-3 text-sm group relative ${msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200 border border-gray-600'}`}>
-                    <div className="prose prose-invert prose-sm"><ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown></div>
-                    {msg.role === 'ai' && <button onClick={() => speak(msg.text)} className="absolute -right-6 top-0 p-1 text-gray-500 hover:text-blue-400 opacity-0 group-hover:opacity-100"><Volume2 size={14} /></button>}
+                
+                {/* Message Bubble */}
+                <div className={`
+                  max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm relative group
+                  ${msg.role === 'user' 
+                    ? 'bg-blue-600 text-white rounded-br-sm' 
+                    : 'bg-white/10 text-gray-100 rounded-bl-sm border border-white/5 backdrop-blur-md'
+                  }
+                `}>
+                    <div className="prose prose-invert prose-sm max-w-none prose-p:my-0 prose-a:text-blue-300">
+                       <ReactMarkdown remarkPlugins={[remarkGfm]}>{msg.text}</ReactMarkdown>
+                    </div>
+
+                    {/* AI Tools (Speak) */}
+                    {msg.role === 'ai' && (
+                      <button 
+                        onClick={() => speak(msg.text)}
+                        className="absolute -right-8 top-1 p-1.5 text-gray-500 hover:text-blue-400 opacity-0 group-hover:opacity-100 transition-all transform hover:scale-110"
+                        title="Read Aloud"
+                      >
+                        <Volume2 size={14} />
+                      </button>
+                    )}
+
+                    {/* Sources (Premium Look) */}
+                    {msg.sources && msg.sources.length > 0 && (
+                      <div className="mt-3 pt-3 border-t border-white/10">
+                        <p className="text-[10px] font-bold text-gray-500 mb-2 flex items-center gap-1.5 uppercase tracking-wider">
+                          <BookOpen size={10} /> Reference Sources
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {msg.sources.map((s, i) => (
+                            <a key={i} href={s.url} target="_blank" className="flex items-center gap-1 text-[10px] bg-black/40 px-2 py-1 rounded-md text-blue-300 hover:text-white hover:bg-blue-600/50 transition-all border border-white/5">
+                              <span className="opacity-50">{i+1}.</span> {s.text.substring(0, 15)}...
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                 </div>
               </div>
             ))}
-            {isLoading && <div className="text-gray-500 text-xs ml-2 flex gap-2"><Loader2 size={12} className="animate-spin" /> Thinking...</div>}
+            
+            {/* Loading Indicator */}
+            {isLoading && (
+              <div className="flex items-center gap-3 text-gray-400 text-xs ml-1 animate-pulse">
+                <div className="p-1.5 bg-white/10 rounded-full">
+                  <Loader2 size={12} className="animate-spin" />
+                </div>
+                <span>Processing Neural Query...</span>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Chat Input */}
-          <form onSubmit={sendMessage} className="p-3 bg-gray-900 border-t border-gray-700 flex gap-2">
-            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask a question..." className="flex-1 bg-gray-800 text-white text-sm rounded-lg px-3 py-2 border border-gray-600 focus:border-blue-500 outline-none" disabled={isLoading}/>
-            <button type="submit" disabled={isLoading || !input.trim()} className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 disabled:opacity-50"><Send size={18} /></button>
+          {/* Input Area */}
+          <form onSubmit={sendMessage} className="p-4 bg-black/40 backdrop-blur-md border-t border-white/5">
+            <div className="relative flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-2 py-1 focus-within:ring-2 focus-within:ring-blue-500/50 focus-within:border-blue-500/50 transition-all">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Ask something about robotics..."
+                className="flex-1 bg-transparent text-white text-sm px-2 py-2.5 focus:outline-none placeholder-gray-500"
+                disabled={isLoading}
+              />
+              <button 
+                type="submit" 
+                disabled={isLoading || !input.trim()}
+                className="p-2 bg-gradient-to-tr from-blue-600 to-indigo-600 text-white rounded-lg hover:shadow-lg hover:shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95"
+              >
+                <Send size={16} />
+              </button>
+            </div>
+            <div className="text-[10px] text-center text-gray-600 mt-2">
+              AI-generated content. Check sources for accuracy.
+            </div>
           </form>
         </div>
-      </div>
 
-      {/* 3. THE DOCK (Buttons Only) */}
-      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
-        {/* Translator Toggle */}
+        {/* 2. THE FLOATING BUTTON (Premium Orb) */}
         <button
-          onClick={() => toggleWidget('translator')}
+          onClick={toggleChat}
           className={`
-            p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-105 border border-gray-700
-            ${activeWidget === 'translator' ? 'bg-gray-200 text-gray-900' : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'}
+            group relative flex items-center justify-center w-14 h-14 rounded-full shadow-2xl 
+            transition-all duration-300 hover:scale-105 active:scale-95
+            ${isOpen ? 'bg-neutral-800 rotate-90' : 'bg-gradient-to-r from-blue-600 to-indigo-600'}
           `}
-          title="Open Translator"
         >
-          <Languages size={24} />
+          {/* Subtle Glow Effect */}
+          <span className={`absolute inset-0 rounded-full blur-lg bg-blue-500/50 group-hover:bg-blue-400/60 transition-all ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+          
+          {/* Icon */}
+          <div className="relative z-10">
+             {isOpen ? <X size={24} className="text-gray-300" /> : <Sparkles size={24} className="text-white animate-pulse-slow" />}
+          </div>
         </button>
 
-        {/* Chatbot Toggle */}
-        <button
-          onClick={() => toggleWidget('chat')}
-          className={`
-            p-4 rounded-full shadow-xl transition-all duration-300 hover:scale-105
-            ${activeWidget === 'chat' ? 'bg-red-500 rotate-90 text-white' : 'bg-blue-600 text-white hover:bg-blue-500'}
-          `}
-          title="Open Chatbot"
-        >
-          {activeWidget === 'chat' ? <X size={24} /> : <MessageSquare size={24} className="fill-current" />}
-        </button>
       </div>
     </>
   );
