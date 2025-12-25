@@ -54,29 +54,27 @@ const config = {
           label: 'Book',
         },
         
-        // --- NEW: WORLD BUTTON (Neon Green & Toggles Theme) ---
+        // --- FIXED: TRANSLATOR BUTTON (Emerald Green & Strict Targeting) ---
         {
           type: 'html',
           position: 'right', 
           value: `
             <button 
-              id="world-btn"
-              onclick="const frames = document.querySelectorAll('iframe'); frames.forEach(f => f.contentWindow.postMessage('toggle-world-view', '*'));" 
+              onclick="const f = document.querySelector('iframe[src*=\\'mode=translator\\']'); if(f) { f.contentWindow.postMessage('toggle-translator', '*'); } else { console.warn('Translator iframe not found'); }" 
               style="
                 background: none; 
                 border: none; 
                 cursor: pointer; 
-                color: #39ff14;  /* Neon Green */
+                color: #10b981;  /* Emerald Green (Aesthetic) */
                 font-size: 1.5rem; 
                 display: flex; 
                 align-items: center; 
                 padding: 0 10px; 
-                transition: all 0.3s ease;
-                text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+                transition: transform 0.2s ease;
               " 
-              onmouseover="this.style.transform='scale(1.2)'; this.style.textShadow='0 0 15px #39ff14';" 
-              onmouseout="this.style.transform='scale(1)'; this.style.textShadow='0 0 5px rgba(57, 255, 20, 0.5)';"
-              title="Open World Mode"
+              onmouseover="this.style.transform='scale(1.1)'; this.style.textShadow='0 0 10px rgba(16, 185, 129, 0.4)';" 
+              onmouseout="this.style.transform='scale(1)'; this.style.textShadow='none';"
+              title="Open Translator"
             >
               🌍
             </button>

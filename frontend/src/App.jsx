@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
-import { Send, Bot, Loader2, Volume2, StopCircle, Trash2, X, Sparkles, Languages, Globe } from 'lucide-react';
+import { Send, Bot, Loader2, Volume2, StopCircle, Trash2, X, Sparkles, Globe } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import TranslatorWidget from './components/TranslatorWidget';
@@ -10,7 +10,6 @@ export default function App() {
   const appMode = urlParams.get('mode') || 'chat'; // 'chat' or 'translator'
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isEmerald, setIsEmerald] = useState(false); // New "Dark Emerald" Theme
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [input, setInput] = useState('');
@@ -25,43 +24,27 @@ export default function App() {
   });
   const messagesEndRef = useRef(null);
 
-  // --- STRICT SIGNAL LISTENER ---
+  // --- STRICT SIGNAL LISTENER (Prevents Cross-Opening) ---
   useEffect(() => {
     const handleMessage = (event) => {
       const signal = event.data;
 
-      // 1. Logic for TRANSLATOR Mode
-      if (appMode === 'translator') {
-        if (signal === 'open-translator') {
-          setIsOpen(true);
-          setIsEmerald(false); // Default style
-        }
-        if (signal === 'toggle-world-view') {
-           // If you want the world button to open translator in Green mode:
-           setIsOpen(prev => !prev);
-           setIsEmerald(true);
-        }
+      // 1. If I am the TRANSLATOR, only listen to 'toggle-translator'
+      if (appMode === 'translator' && signal === 'toggle-translator') {
+         setIsOpen(prev => !prev);
       }
 
-      // 2. Logic for CHAT Mode
-      if (appMode === 'chat') {
-        if (signal === 'open-chat') {
-          setIsOpen(true);
-        }
-        // If the World Button is clicked, we usually toggle the Chat
-        if (signal === 'toggle-world-view') {
-           setIsOpen(prev => !prev);
-           setIsEmerald(true);
-        }
+      // 2. If I am the CHATBOT, only listen to 'toggle-chat'
+      if (appMode === 'chat' && signal === 'toggle-chat') {
+         setIsOpen(prev => !prev);
       }
     };
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, [appMode]);
 
-  // Communicate with Parent (Docusaurus) to resize iframe
+  // Communicate with Parent (Docusaurus)
   useEffect(() => {
-    // We send different signals based on who we are
     const prefix = appMode === 'translator' ? 'translator' : 'chat';
     const signal = isOpen ? `${prefix}-opened` : `${prefix}-closed`;
     window.parent.postMessage(signal, '*');
@@ -70,7 +53,7 @@ export default function App() {
   useEffect(() => { if (appMode === 'chat' && isOpen) scrollToBottom(); }, [messages, isOpen]);
   const scrollToBottom = () => setTimeout(() => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }), 100);
 
-  // --- SPEECH FUNCTION ---
+  // Speech Logic (Urdu/Hindi fix included)
   const speak = (text) => { 
     window.speechSynthesis.cancel(); 
     const u = new SpeechSynthesisUtterance(text);
@@ -102,44 +85,22 @@ export default function App() {
     finally { setIsLoading(false); }
   };
 
-  // --- NEW AESTHETIC: DARK EMERALD (Matte, Professional) ---
+  // --- UNIFIED THEME: DARK EMERALD (Applied Everywhere) ---
   const theme = {
-    // If Emerald Mode is active: Very Dark Grey Bg + Subtle Green Borders
-    container: isEmerald 
-      ? 'bg-zinc-950 border border-emerald-900 shadow-2xl shadow-emerald-900/20' 
-      : 'bg-gray-900/95 border border-white/10 shadow-2xl',
-    
-    header: isEmerald 
-      ? 'bg-zinc-900 border-b border-emerald-900/50' 
-      : 'bg-white/5 border-b border-white/5',
-      
-    textMain: isEmerald ? 'text-emerald-500' : 'text-white',
-    textSub: isEmerald ? 'text-emerald-700' : 'text-green-400',
-    
-    // Bubbles
-    userBubble: isEmerald 
-      ? 'bg-emerald-900/30 border border-emerald-800 text-emerald-100' 
-      : 'bg-blue-600 border-blue-500 text-white',
-      
-    aiBubble: isEmerald 
-      ? 'bg-zinc-900 border border-zinc-800 text-gray-300' 
-      : 'bg-white/5 border-white/10 text-gray-100',
-      
-    // Input
-    inputBox: isEmerald 
-      ? 'bg-zinc-900 border border-emerald-900/50 text-emerald-100 placeholder-emerald-800' 
-      : 'bg-white/5 border border-white/10 text-white',
-      
-    sendBtn: isEmerald 
-      ? 'bg-emerald-800 hover:bg-emerald-700 text-white' 
-      : 'bg-blue-600 text-white',
+    container: 'bg-zinc-950 border border-emerald-900/50 shadow-2xl shadow-black',
+    header: 'bg-zinc-900/80 border-b border-emerald-900/30',
+    textMain: 'text-emerald-400', 
+    textSub: 'text-emerald-600',
+    userBubble: 'bg-emerald-900/20 border border-emerald-800 text-emerald-100',
+    aiBubble: 'bg-zinc-900 border border-zinc-800 text-gray-300',
+    inputBox: 'bg-zinc-900/50 border border-emerald-900/30 text-emerald-100 placeholder-emerald-800/50',
+    sendBtn: 'bg-emerald-800 hover:bg-emerald-700 text-white',
   };
 
   // ==========================================
   // RENDER: TRANSLATOR MODE
   // ==========================================
   if (appMode === 'translator') {
-    // If closed, return nothing
     if (!isOpen) return null;
     return (
       <div className={`backdrop-blur-md rounded-xl w-full h-full overflow-hidden animate-in fade-in slide-in-from-top-5 flex flex-col ${theme.container}`}>
@@ -149,9 +110,8 @@ export default function App() {
              </h3>
              <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-white transition"><X size={18}/></button>
          </div>
-         {/* Translator Widget Content */}
          <div className="p-4 flex-1 overflow-y-auto">
-            <TranslatorWidget isEmerald={isEmerald} />
+            <TranslatorWidget theme={theme} />
          </div>
       </div>
     );
@@ -173,11 +133,11 @@ export default function App() {
           {/* Header */}
           <div className={`flex items-center justify-between px-5 py-4 rounded-t-xl ${theme.header}`}>
             <div className="flex items-center gap-3">
-              <div className={`p-2 rounded-lg ${isEmerald ? 'bg-emerald-900/20' : 'bg-gradient-to-tr from-blue-600 to-indigo-600'}`}>
+              <div className="p-2 rounded-lg bg-emerald-900/10 border border-emerald-900/20">
                   <Bot size={20} className={theme.textMain} />
               </div>
               <div>
-                  <h1 className={`font-semibold text-sm ${isEmerald ? 'text-gray-200' : 'text-white'}`}>Next-Gen AI</h1>
+                  <h1 className="font-semibold text-sm text-gray-200">Next-Gen AI</h1>
                   <p className={`text-[10px] ${theme.textSub}`}>Online</p>
               </div>
             </div>
@@ -203,7 +163,7 @@ export default function App() {
           </div>
 
           {/* Input Area */}
-          <form onSubmit={sendMessage} className={`p-4 border-t ${isEmerald ? 'border-emerald-900/30' : 'border-white/5'}`}>
+          <form onSubmit={sendMessage} className={`p-4 border-t border-emerald-900/20`}>
             <div className={`flex items-center gap-2 rounded-lg px-2 py-1 ${theme.inputBox}`}>
               <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask a question..." className="flex-1 bg-transparent text-sm px-2 py-3 focus:outline-none" disabled={isLoading}/>
               <button type="submit" disabled={isLoading || !input.trim()} className={`p-2 rounded-md transition ${theme.sendBtn}`}><Send size={16}/></button>
@@ -211,11 +171,11 @@ export default function App() {
           </form>
       </div>
       
-      {/* Standard Toggle Button (Bottom Right) - Only shows for Chat Mode */}
+      {/* Standard Toggle Button (Always Dark Emerald Style) */}
       {appMode === 'chat' && (
         <div className="fixed bottom-3 right-3 z-50">
-            <button onClick={() => { setIsOpen(!isOpen); setIsEmerald(false); }} className={`flex items-center justify-center w-14 h-14 rounded-full shadow-xl hover:scale-105 transition ${isEmerald ? 'bg-zinc-800 border border-emerald-500/50' : 'bg-blue-600'}`}>
-            {isOpen ? <X size={24} className="text-gray-300" /> : <Sparkles size={24} className="text-white" />}
+            <button onClick={() => setIsOpen(!isOpen)} className={`flex items-center justify-center w-14 h-14 rounded-full shadow-xl hover:scale-105 transition bg-zinc-900 border border-emerald-500/50`}>
+            {isOpen ? <X size={24} className="text-gray-300" /> : <Sparkles size={24} className="text-emerald-400" />}
             </button>
         </div>
       )}
