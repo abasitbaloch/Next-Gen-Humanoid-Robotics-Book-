@@ -50,16 +50,18 @@ export default function App() {
     }
   };
 
-  // --- TOGGLE LOGIC ---
+  // --- SMART TOGGLE LOGIC ---
   const toggleWidget = (widgetName) => {
     const isClosing = activeWidget === widgetName;
     const isOpening = activeWidget === null;
 
     if (isClosing) {
       setActiveWidget(null);
+      // Tell parent to CLOSE the iframe
       window.parent.postMessage('toggle-widget', '*'); 
     } else {
       setActiveWidget(widgetName);
+      // Only tell parent to OPEN if it wasn't open before.
       if (isOpening) {
         window.parent.postMessage('toggle-widget', '*');
       }
