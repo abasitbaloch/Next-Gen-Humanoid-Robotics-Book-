@@ -627,9 +627,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🗺️ Roadmap
 
-- [ ] Add more languages to translator
-- [ ] Implement chat history persistence (Neon DB)
-- [ ] Add voice input for chatbot
+- [x] Add more languages to translator
+- [x] Implement chat history persistence (Neon DB)
+- [x] Add voice input for chatbot
 - [ ] Enhance diagram rendering
 - [ ] Add code execution sandbox
 - [ ] Implement user authentication
